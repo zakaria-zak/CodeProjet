@@ -807,7 +807,7 @@ void MenuDecryptageVigenere(GtkWidget *Fenetre)
     
     Bouton2 = gtk_button_new_with_label("charger");
 
-    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirFichier), NULL);
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirFichier), NULL);//passer une valeur
    
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
@@ -1215,8 +1215,9 @@ int main(int argc, char **argv)
 
 /*
  * le travail a fournir 
-decryptage rajouter les autres menus et ajouter la langue
-il faut faire plusieurs choisir fichier ou lui envoyer une valeur pour quelle fasse plusieurs trucs 
+ajouter la langue 
+choisir fichier rajouter un argument 
+il faut mettre une barre de progression pour eviter les seg faults 
 
 * les problemes rencontrés 
 il ya des seg fault quand on fait 2 enregistrement du texte

@@ -1,20 +1,35 @@
-all: ski
+all: dcrypt
 
-run:	ski
-		./ski
+run:	dcrypt
+		./dcrypt
 		
-ski: 	main.o graphe.o fonctions.o
-			gcc -g -Wall main.o graphe.o fonctions.o -o ski
+dcrypt:		main.o graphe.o fonctions.o
+			gcc -g -Wall main.o graphe.o fonctions.o -o dcrypt
 		
 main.o:	main.c graphe.h fonctions.h 
 		gcc -c -Wall main.c
 
-graphe.o:	graphe.c fonctions.h
+InterfaceGraphique.o:	graphe.c fonctions.h
 				gcc -c -Wall graphe.c
 
-fonctions.o:	fonctions.c definitions.h graphe.h
+CryptageSubstitution.o:	graphe.c fonctions.h
+				gcc -c -Wall graphe.c
+
+CryptageVigenere.o:	graphe.c fonctions.h
+				gcc -c -Wall graphe.c
+
+DecryptageSubstitution.o:	graphe.c fonctions.h
+				gcc -c -Wall graphe.c
+
+DecryptageVigenere.o:	graphe.c fonctions.h
+				gcc -c -Wall graphe.c
+
+AnalyseFrequentielle.o:	graphe.c fonctions.h
+				gcc -c -Wall graphe.c
+
+Fonctions.o:	fonctions.c definitions.h graphe.h
 				gcc -c -Wall fonctions.c
 
 clean:
 	rm *.o
-	rm ski
+	rm dcrypt
