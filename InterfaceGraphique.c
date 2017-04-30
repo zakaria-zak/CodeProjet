@@ -38,6 +38,96 @@ gchar* DecryptageVigenere(gchar* TexteClair)
     return TexteClair;
 }
 
+void modifieLangue(GtkWidget *Fenetre, gpointer *lang)
+{
+    //printf("%d\n", lang);
+    if (*lang==0)
+    {
+        langue=0;
+    }
+    else
+    {
+        langue=1;
+    }
+
+    MenuPrincipal(Fenetre);
+}
+
+void ChoisirLangue()
+{
+    GtkWidget* Boite;
+    GtkWidget* bouton1;
+    GtkWidget* bouton2;
+    GtkWidget* Label_text;
+    gchar* msg;
+    int i=0;
+    int j=1;
+    Fenetre = gtk_widget_get_toplevel (Fenetre);//je crée la seconde fenetre
+
+    ViderContenaire(GTK_CONTAINER(Fenetre));
+
+    Label_text=gtk_label_new(NULL);
+
+    Boite = gtk_vbox_new(TRUE, 0);
+
+    gtk_container_add(GTK_CONTAINER(Fenetre), Boite);
+
+     msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Quelle est la langue ? </span>\n",
+           -1, NULL, NULL, NULL);
+
+    bouton1= gtk_button_new_with_label("Français");
+
+    gtk_label_set_markup(GTK_LABEL(Label_text), msg);
+
+    gtk_label_set_justify(GTK_LABEL(Label_text), GTK_JUSTIFY_CENTER);
+
+    g_signal_connect(G_OBJECT(bouton1), "clicked", G_CALLBACK(modifieLangue), (gpointer)&i );
+
+    gtk_box_pack_start(GTK_BOX(Boite), Label_text, TRUE, FALSE,0);
+
+    gtk_box_pack_start(GTK_BOX(Boite), bouton1, TRUE, TRUE,10);
+
+    bouton2=gtk_button_new_with_label("Anglais");
+
+    g_signal_connect(G_OBJECT(bouton2), "clicked", G_CALLBACK(modifieLangue), (gpointer)&j);
+
+    gtk_box_pack_start(GTK_BOX(Boite), bouton2, TRUE, TRUE,10);
+   
+    gtk_widget_show_all(Fenetre);
+
+    
+}
+
+void MenuAttente(GtkWidget *Fenetre)
+{
+   GtkWidget* pWindow;
+   GtkWidget* Label;
+   gchar* Text;
+ 
+   pWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+   gtk_window_set_title(GTK_WINDOW(pWindow), "fenetre d'attente");
+   gtk_window_set_default_size(GTK_WINDOW(pWindow), 320, 200);
+   gtk_container_set_border_width(GTK_CONTAINER(pWindow), 4);
+
+    Label=gtk_label_new(NULL);
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Patientez...</span>\n",
+           -1, NULL, NULL, NULL);
+    gtk_label_set_markup(GTK_LABEL(Label), Text);
+    g_free(Text);  
+    gtk_container_add(GTK_CONTAINER(pWindow), Label);
+    
+
+   gtk_widget_show_all(pWindow);  
+   gtk_widget_show_all(pWindow);
+   gtk_main_iteration(); 
+   gtk_main_iteration();
+
+   sleep(3);      
+   gtk_widget_destroy(pWindow);
+   gtk_main();
+
+}
+
 void Enregistrer (GtkWidget *p_widget, GtkWidget *text )
 {
       /* Le fichier n'a pas encore ete enregistre */
@@ -1138,12 +1228,9 @@ void MenuPrincipal(GtkWidget *Fenetre)
 {
     Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
 	ViderContenaire(GTK_CONTAINER(Fenetre));//on la vide
-	GtkWidget *Box;
-    GtkWidget* Label;
+	GtkWidget *Box, *Label;
     gchar* Text;
-    GtkWidget *Bouton1;
-    GtkWidget *Bouton2;
-    GtkWidget *Bouton3;
+    GtkWidget *Bouton1, *Bouton2, *Bouton3;
     
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
@@ -1178,8 +1265,6 @@ void MenuPrincipal(GtkWidget *Fenetre)
     gtk_box_pack_start(GTK_BOX(Box), Bouton3, TRUE, TRUE, 0);
     
     gtk_widget_show_all(Fenetre);
-     
-
 }
  
 
@@ -1217,7 +1302,8 @@ int main(int argc, char **argv)
  * le travail a fournir 
 ajouter la langue 
 choisir fichier rajouter un argument 
-il faut mettre une barre de progression pour eviter les seg faults 
+il faut mettre une barre de progression pour eviter les seg faults (fait 70% )
+les 30% rajouter le mot et appeler au bon endroit 
 
 * les problemes rencontrés 
 il ya des seg fault quand on fait 2 enregistrement du texte

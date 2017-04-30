@@ -3,32 +3,32 @@ all: dcrypt
 run:	dcrypt
 		./dcrypt
 		
-dcrypt:		main.o graphe.o fonctions.o
-			gcc -g -Wall main.o graphe.o fonctions.o -o dcrypt
-		
-main.o:	main.c graphe.h fonctions.h 
+dcrypt:		main.o InterfaceGraphique.o Fonctions.o AnalyseFrequentielle.o CryptageSubstitution.o CryptageVigenere.o DecryptageSubstitution.o DecryptageVigenere.o
+			gcc -g -Wall main.o InterfaceGraphique.o Fonctions.o AnalyseFrequentielle.o CryptageSubstitution.o CryptageVigenere.o DecryptageSubstitution.o DecryptageVigenere.o -o dcrypt
+
+main.o:	main.c InterfaceGraphique.h
 		gcc -c -Wall main.c
 
-InterfaceGraphique.o:	graphe.c fonctions.h
-				gcc -c -Wall graphe.c
+InterfaceGraphique.o:	InterfaceGraphique.c Fonctions.h AnalyseFrequentielle.h CryptageSubstitution.h CryptageVigenere.h DecryptageSubstitution.h DecryptageVigenere.h
+				gcc -c -Wall InterfaceGraphique.c
 
-CryptageSubstitution.o:	graphe.c fonctions.h
-				gcc -c -Wall graphe.c
+CryptageSubstitution.o:	CryptageSubstitution.c Fonctions.h
+				gcc -c -Wall CryptageSubstitution.c
 
-CryptageVigenere.o:	graphe.c fonctions.h
-				gcc -c -Wall graphe.c
+CryptageVigenere.o:	CryptageVigenere.c Fonctions.h
+				gcc -c -Wall CryptageVigenere.c
 
-DecryptageSubstitution.o:	graphe.c fonctions.h
-				gcc -c -Wall graphe.c
+DecryptageSubstitution.o:	DecryptageSubstitution.c Fonctions.h AnalyseFrequentielle.h
+				gcc -c -Wall DecryptageSubstitution.c
 
-DecryptageVigenere.o:	graphe.c fonctions.h
-				gcc -c -Wall graphe.c
+DecryptageVigenere.o:	DecryptageVigenere.c Fonctions.h AnalyseFrequentielle.h
+				gcc -c -Wall DecryptageVigenere.c
 
-AnalyseFrequentielle.o:	graphe.c fonctions.h
-				gcc -c -Wall graphe.c
+AnalyseFrequentielle.o:	AnalyseFrequentielle.c Fonctions.h
+				gcc -c -Wall AnalyseFrequentielle.c
 
-Fonctions.o:	fonctions.c definitions.h graphe.h
-				gcc -c -Wall fonctions.c
+Fonctions.o:	Fonctions.c Definitions.h 
+				gcc -c -Wall Fonctions.c
 
 clean:
 	rm *.o
