@@ -5,6 +5,7 @@
 
 GtkWidget *Fenetre;
 int langue=0;
+int choix=0;
 
 void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte);
 gchar* ConvertisseurChar(char T[],int TailleTexte);
@@ -18,7 +19,9 @@ void MenuDecryptageVigenere(GtkWidget *Fenetre);
 void MenuAnalyseFrequentielle(GtkWidget *Fenetre);
 void MenuResultatSubstitution(GtkWidget *Fenetre, gchar* Text_crypt);
 void ViderContenaire(GtkContainer * container);
-
+void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle);
+void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gchar* cle);
+void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Text_crypt , gchar* cle);
 
 gchar* CryptageSubstitution(gchar* TexteClair)
 {
@@ -239,6 +242,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
     const gchar* chemin;
     gchar* contenu;
     gchar* text_crypte;
+    gchar* text_clair;
     GtkWidget *dialog;
     chemin = gtk_file_selection_get_filename(GTK_FILE_SELECTION (file_selection) );
    dialog = gtk_message_dialog_new(GTK_WINDOW(file_selection),
@@ -248,9 +252,28 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
    "Vous avez choisi :\n%s", chemin);
      //ce chemin doit etre utiliser pour remplir une chaine/tableau ensuite on supprime la "dialog"
     contenu = LireFichier(chemin);//on recupere le contenu
-    text_crypte=CryptageSubstitution(contenu); //on le crypte
+    
     //et on appele le menu d'apres
-    MenuResultatSubstitution(Fenetre,text_crypte);
+   switch (choix)
+	{
+	case 1:
+		text_crypte=CryptageSubstitution(contenu); //on le crypte
+  		MenuResultatSubstitution(Fenetre,text_crypte);
+  	break;
+	case 2:
+		text_crypte=CryptageVigenere(contenu,contenu);
+  		MenuResultatVigenere(Fenetre,text_crypte,text_crypte);
+  	break;
+	case 3:
+  		text_clair=DecryptageSubstitution(contenu);
+  		MenuResultatDecryptageSubstitution(Fenetre,text_clair,text_clair);
+  	break;
+	case 4:
+  		text_clair=DecryptageVigenere(contenu);
+  		MenuResultatDecryptageVigenere(Fenetre,text_clair,text_clair);
+  	break;
+}
+    
     gtk_dialog_run(GTK_DIALOG(dialog));
     gtk_widget_destroy(dialog);
     gtk_widget_destroy(file_selection);
@@ -931,7 +954,7 @@ void MenuDecryptageVigenere(GtkWidget *Fenetre)
     GtkWidget *Bouton1;
     GtkWidget *Bouton2;
     GtkWidget *Bouton3;
-    
+    choix=4;
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);
@@ -984,7 +1007,7 @@ void MenuDecryptageSubstitution(GtkWidget *Fenetre)
     GtkWidget *Bouton1;
     GtkWidget *Bouton2;
     GtkWidget *Bouton3;
-    
+    choix=3;
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);
@@ -1036,7 +1059,7 @@ void MenuCryptageVigenere(GtkWidget *Fenetre)
     GtkWidget *Bouton2;
     GtkWidget *Bouton3;
     GtkWidget* zone_t;
-    
+    choix=2;
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);
@@ -1088,7 +1111,7 @@ void MenuCryptageSubstitution(GtkWidget *Fenetre)
     GtkWidget *Bouton2;
     GtkWidget *Bouton3;
     GtkWidget* zone_t;
-    
+    choix=1;
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2= gtk_hbox_new(FALSE, 0);
@@ -1345,8 +1368,6 @@ int main(int argc, char **argv)
     g_signal_connect(G_OBJECT(Fenetre), "destroy", G_CALLBACK(gtk_main_quit), NULL);
     
     MenuPrincipal(Fenetre);
-    //MenuResultatDecryptagePartiel(Fenetre);
-    //MenuCryptageSubstitution(Fenetre);
  
     gtk_main();
  
