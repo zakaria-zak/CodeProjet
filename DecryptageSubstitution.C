@@ -1,5 +1,6 @@
 #include "DecryptageSubstitution.h"
 #include <stdlib.h>
+#include <stdio.h>  // a enlever quand TabRessource sera deplacé
 #include <gtk/gtk.h>
 
 typedef struct phoneme{
@@ -20,7 +21,55 @@ typedef struct ressourceslangue{
 	PHONEME di[25];
 	PHONEME tr[25];
 }RESSOURCESLANGUE;
+
+RESSOURCESLANGUE TabRessource();{ //changer de module
+	RESSOURCESLANGUE Ressource;
+	FILE* fichier=NULL;
+	int nbr;
 	
+	if(Langue == 0){  //en Francais
+		fichier = fopen("TabRessourceFrancais.txt", "r");
+		while(nbr<26){
+			fsanf(fichier,"%f" Ressource.occ[nbr]);	
+			nbr++;
+		}
+		nbr=0;
+		while(nbr<26){
+			fsanf(fichier,"%c %d",Ressource.di[nbr].nom,Ressource.di[nbr].frequence);		//fonction pou gchar?
+			nbr++;
+		}
+		
+		nbr=0;
+		while(nbr<26){
+			fsanf(fichier,"%c %d",Ressource.tr[nbr].nom,Ressource.tr[nbr].frequence);		//fonction pou gchar?
+			nbr++;
+		}
+		
+		fclose(fichier);
+	}
+	
+	if(Langue == 1){  //en Anglais
+		fichier = fopen("TabRessourceAnglais.txt", "r");
+				while(nbr<26){
+			fsanf(fichier,"%f" Ressource.occ[nbr]);	
+			nbr++;
+		}
+		nbr=0;
+		while(nbr<26){
+			fsanf(fichier,"%c %d",Ressource.di[nbr].nom,Ressource.di[nbr].frequence);		//fonction pou gchar?
+			nbr++;
+		}
+		nbr=0;
+		while(nbr<26){
+			fsanf(fichier,"%c %d",Ressource.tr[nbr].nom,Ressource.tr[nbr].frequence);		//fonction pou gchar?
+			nbr++;
+		}
+		fclose(fichier);
+	}
+	return Ressource;
+}
+	
+
 void VerificationCoherenceDigrammeTrigramme(gchar T[], int TailleTexte, gchar clef[], int TailleAlphabet, RESSOURCESLANGUE Ressource){
 	int parcoureTexte=0; //entier parcourant le texte
 	int anomalie=0; //entier verifiant si un digramme est anormal (1 si anormal 0 si normal)
