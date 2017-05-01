@@ -38,6 +38,70 @@ gchar* DecryptageVigenere(gchar* TexteClair)
     return TexteClair;
 }
 
+void MenuResultatDecryptagePartiel(GtkWidget *Fenetre)
+{
+    Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
+	ViderContenaire(GTK_CONTAINER(Fenetre));//on la vide
+	GtkWidget *Box,*Box2, *Label,*Label2;
+    gchar* Text;
+    GtkWidget *Bouton1, *Bouton2, *Bouton3;
+    
+    Box = gtk_vbox_new(TRUE, 0);
+    gtk_container_add(GTK_CONTAINER(Fenetre), Box);
+
+    Label=gtk_label_new(NULL);
+ 
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Welcome to DecryptUs</span>\n",
+           -1, NULL, NULL, NULL);
+    gtk_label_set_markup(GTK_LABEL(Label), Text);
+    g_free(Text);
+ 
+    gtk_label_set_justify(GTK_LABEL(Label), GTK_JUSTIFY_CENTER);
+
+    gtk_box_pack_start(GTK_BOX(Box), Label, TRUE, TRUE, 0);
+    
+    Label2=gtk_label_new("le texte");
+ 
+    gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
+
+    gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
+    
+    Label2=gtk_label_new("abcdefgh");
+ 
+    gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
+
+    gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
+    
+    Label2=gtk_label_new("legende");
+ 
+    gtk_label_set_justify(GTK_LABEL(Label2), GTK_JUSTIFY_CENTER);
+
+    gtk_box_pack_start(GTK_BOX(Box), Label2, TRUE, TRUE, 0);
+    
+    Box2 = gtk_hbox_new(TRUE, 0);
+    gtk_container_add(GTK_CONTAINER(Box), Box2);
+    
+    Bouton1 = gtk_button_new_with_label("redecrypter");
+
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(MenuDecryptage), NULL);
+   
+    gtk_box_pack_start(GTK_BOX(Box2), Bouton1, TRUE, TRUE, 0);
+    
+    Bouton2 = gtk_button_new_with_label("changer la cle");
+
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(MenuDecryptage), NULL);
+   
+    gtk_box_pack_start(GTK_BOX(Box2), Bouton2, TRUE, TRUE, 0);
+    
+    Bouton3 = gtk_button_new_with_label("terminer");
+
+    g_signal_connect(G_OBJECT(Bouton3), "clicked", G_CALLBACK(MenuDecryptage), NULL);
+   
+    gtk_box_pack_start(GTK_BOX(Box2), Bouton3, TRUE, TRUE, 0);
+    
+    gtk_widget_show_all(Fenetre);
+}
+
 void modifieLangue(GtkWidget *Fenetre, gpointer *lang)
 {
     //printf("%d\n", lang);
@@ -1280,8 +1344,8 @@ int main(int argc, char **argv)
     gtk_window_set_default_size(GTK_WINDOW(Fenetre), largeur, hauteur);
     g_signal_connect(G_OBJECT(Fenetre), "destroy", G_CALLBACK(gtk_main_quit), NULL);
     
-    MenuPrincipal(Fenetre);
-    
+    //MenuPrincipal(Fenetre);
+    MenuResultatDecryptagePartiel(Fenetre);
     
  
     gtk_main();
