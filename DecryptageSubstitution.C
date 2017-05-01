@@ -1,118 +1,86 @@
-#include "fonctions.h"
-#include <stdio.h>
+#include "DecryptageSubstitution.h"
 #include <stdlib.h>
-#include <string.h>
+#include <gtk/gtk.h>
 
-void initialise(Arc G[V][V])
-{	//initialise le graphe
-	int i, j;
-	for (i = 0; i < V; i++)
-	{
-		for (j = 0; j < V; j++)
-		{
-			G[j][i].nom = "";
-			G[j][i].poids = 1000;
-			G[j][i].depart = "Sommet inconnu";
-			G[j][i].arrivee = "Sommet inconnu";
-			G[j][i].nbArcs = 0;
-		}
-	}
-}
-	
-char* nomSommet(int indiceSommet)
-{	//prend un indice de sommet dans le tableau et retourne le nom du sommet correspondant
-	if (indiceSommet==0)
-		return "Pic blanc";
-	if (indiceSommet==1)
-		return "Grotte de glace";
-	if (indiceSommet==2)
-		return "Lac blanc";
-	if (indiceSommet==3)
-		return "Sommet 3060";
-	if (indiceSommet==4)
-		return "Glacier de sarenne";
-	return "Sommet inconnu";
-}
+typedef struct phoneme{
+	int frequence;
+	gchar* nom;
+}PHONEME;
 
-int indiceSommet(char nomSommet[]) //comparaison impossible 
-{	//prend un indice de sommet dans le tableau et retourne le nom du sommet correspondant
-	if (!strcmp(nomSommet,"younes"))
-		return 0;
-	if (!strcmp(nomSommet,"Grotte_de_glace"))
-		return 1;
-	if (!strcmp(nomSommet,"Lac_blanc"))
-		return 2;
-	if (!strcmp(nomSommet,"Sommet_3060"))
-		return 3;
-	if (!strcmp(nomSommet,"bens"))
-		return 4;
-	return 5;
-}
+typedef struct analyse{ 
+	int nb;  //taille des tableaux
+	float occ[25];
+	PHONEME di[25]; 
+	PHONEME tr[25];
+	gchar* pgor;
+}ANALYSE;
 
-char* nomArc(int indiceArc)
-{	//prend un indice d'arc et retourne le nom de l'arc correspondant
-	if (indiceArc==0)
-		return "descente du tunnel 1";
-	if (indiceArc==1)
-		return "descente de la breche";
-	if (indiceArc==2)
-		return "descente du tunnel 2";
-	if (indiceArc==3)
-		return "descente du glacier";
-	if (indiceArc==4)
-		return "descente de sarenne";
-	if (indiceArc==5)
-		return "telepherique pic blanc";
-	if (indiceArc==6)
-		return "telesiege glacier";
-	return "arc inconnu";
-}
-
-void lectureGraphe(char* nomFichier, Arc G[V][V])
-{
-	FILE* F = fopen(nomFichier,"r");	//doit etre deja present, sinon NULL
+typedef struct ressourceslangue{
+	float occ[25];
+	PHONEME di[25];
+	PHONEME tr[25];
+}RESSOURCESLANGUE;
 	
-	if (F == NULL){
-		printf("fichier du graphe introuvable\n");
-		return;
-	}
+void VerificationCoherenceDigrammeTrigramme(gchar T[], int TailleTexte, gchar clef[], int TailleAlphabet, RESSOURCESLANGUE Ressource){
+	int parcoureTexte=0; //entier parcourant le texte
+	int anomalie=0; //entier verifiant si un digramme est anormal (1 si anormal 0 si normal)
+	int testDigramme=0; //compteur qui vas tester les 25 digrammes les plus connu de la langue
+	gchar* digrammeTeste; //initialisation d'une chaine de caractère pour stocker le digramme testé
 	
-	int k, temps, experience = getExperience();
-	
-	initialise(G);
+	while(parcoureTexte < TailleTexte){
 		
-	for (k = 0; k < E; k++)			//boucle qui parcourt les lignes du fichier : E lignes <=> E arcs en comptant les arcs qui se repetent
-	{
-		int i, j, indiceArc, couleur;
-		//i : indice du sommet de départ, j : indice du sommet d'arrivée
+		//verification si digramme en texte clair (boucle, si crypté parcoureTexte++sinon sortir de la boucle , si pas de digramme disponible passer se qui suit)
 		
-		fscanf(F,"%d %d %d %d %d",&i, &j, &indiceArc, &couleur, &temps);
+		anomalie=1; //anomalie fixé à 1 puis on regarde si le digramme est répértorier dans la liste des digramme utilisée.
 		
-		G[i][j].depart = nomSommet(i);
-		G[i][j].arrivee = nomSommet(j);
-		G[i][j].nbArcs++;
-		G[i][j].nom = nomArc(indiceArc);
-		G[i][j].poids = calculPoids(couleur,temps,experience);
+		while(testDigramme<25){
 		
-	}
-	
-	fclose(F);
-	
-}
-
-void afficheGraphe(Arc G[V][V])
-{
-	printf("\n######################################### AFFICHAGE DU GRAPHE #########################################\n");
-	int i,j;
-	for (i = 0; i < V; i++)
-	{
-		for (j = 0; j < V; j++)
-		{
-			while (G[i][j].nbArcs!=0){
-					printf("%s\t->\t%s\t %d arc(s) : %s de poids %d\n",G[i][j].depart,G[i][j].arrivee,G[i][j].nbArcs,G[i][j].nom,G[i][j].poids);
-
+			//fonction prenant Deux caractère du tableau et les met sous forme de chaine de caractère
+		
+			if(digrammeTeste == Ressource.di[testDigramme].nom){					//teste de normalité
+			anomalie=0;
+			testDigramme=26; //test valide on met fin a la boucle
 			}
+			
+			testDigramme++;
 		}
 		
+		if(anomalie==1){
+			
+			// fonction de correction (while(anomlie==1))
+			
+			//MenuResultatDecyptagePartiel(???????????????????????)
+			}
+			
+		parcoureTexte++;
 	}
 }
+
+void DecryptageSubstitution(gchar* texteCrypte);{
+	RESSOURCESLANGUE langue; // structure qui vas contenir les frequences de la langue choisi
+	ANALYSE texte;	// structure qui vas contenir les frequences du texte
+	
+	langue = TabRessource();  // remplie la structure 
+	texte = AnalyseFrequentielle(texteCrypte); //remplie la structure 
+	
+	gchar TCRYPT[texte.nb];
+	ConvertisseurTableau(TCRYPT[], texte.nb, texteCrypte);
+	
+	char TCLEF[25];	//Tableau qui vas contenir la clef de substitution
+	int nbrChangement=0; //nbr de lettres qui on était modifié par la fonction et qui vons servir de compteur pour la boucle
+	while(nbrChangement < 26){
+		
+		//ici fonction de comparaison des deux structures
+		
+		
+		VerificationCoherenceDigrammeTrigramme(TCRYPT[],texte.nb,TCLEF[],25,langue);
+		nbrChangement++;	
+	}
+	
+}
+
+int main(int argc, char **argv)
+{
+
+	return 0; 
+}	
