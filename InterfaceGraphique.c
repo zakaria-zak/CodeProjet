@@ -106,8 +106,6 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre)
 
 void modifieLangue(GtkWidget *Fenetre, int lang)
 {
-    //int *n=lang;
-    //printf("%d\n", &n);
     if (lang==0)
     {
         langue=0;
@@ -117,7 +115,7 @@ void modifieLangue(GtkWidget *Fenetre, int lang)
         langue=1;
     }
 
-    MenuPrincipal(Fenetre);
+    MenuDecryptage(Fenetre);
 }
 
 void ChoisirLangue()
@@ -1116,8 +1114,7 @@ void MenuCryptageSubstitution(GtkWidget *Fenetre)
     
     Bouton1 = gtk_button_new_with_label("Rentrer un texte ");
 
-    //g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(BoiteDialogueSubstitution), NULL);
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(ChoisirLangue), NULL);
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(BoiteDialogueSubstitution), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("choisir un fichier");
@@ -1293,7 +1290,6 @@ void MenuCryptage(GtkWidget *Fenetre)
 
 void MenuPrincipal(GtkWidget *Fenetre)
 {
-    printf("langue = %d\n",langue);
     Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
 	ViderContenaire(GTK_CONTAINER(Fenetre));//on la vide
 	GtkWidget *Box, *Label;
@@ -1322,7 +1318,7 @@ void MenuPrincipal(GtkWidget *Fenetre)
     
     Bouton2 = gtk_button_new_with_label("Decrypter");
 
-    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(MenuDecryptage), NULL);
+    g_signal_connect(G_OBJECT(Bouton2), "clicked", G_CALLBACK(ChoisirLangue), NULL);
    
     gtk_box_pack_start(GTK_BOX(Box), Bouton2, TRUE, TRUE, 0);
     
@@ -1348,9 +1344,9 @@ int main(int argc, char **argv)
     gtk_window_set_default_size(GTK_WINDOW(Fenetre), largeur, hauteur);
     g_signal_connect(G_OBJECT(Fenetre), "destroy", G_CALLBACK(gtk_main_quit), NULL);
     
-    //MenuPrincipal(Fenetre);
+    MenuPrincipal(Fenetre);
     //MenuResultatDecryptagePartiel(Fenetre);
-    MenuCryptageSubstitution(Fenetre);
+    //MenuCryptageSubstitution(Fenetre);
  
     gtk_main();
  
