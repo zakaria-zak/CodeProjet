@@ -148,7 +148,7 @@ void ChoisirLangue()
 
     gtk_label_set_justify(GTK_LABEL(Label_text), GTK_JUSTIFY_CENTER);
 
-    g_signal_connect(G_OBJECT(bouton1), "clicked", G_CALLBACK(modifieLangue), i );
+    g_signal_connect(G_OBJECT(bouton1), "clicked", G_CALLBACK(modifieLangue), (gpointer) i );
 
     gtk_box_pack_start(GTK_BOX(Boite), Label_text, TRUE, FALSE,0);
 
@@ -156,7 +156,7 @@ void ChoisirLangue()
 
     bouton2=gtk_button_new_with_label("Anglais");
 
-    g_signal_connect(G_OBJECT(bouton2), "clicked", G_CALLBACK(modifieLangue), j);
+    g_signal_connect(G_OBJECT(bouton2), "clicked", G_CALLBACK(modifieLangue), (gpointer) j);
 
     gtk_box_pack_start(GTK_BOX(Boite), bouton2, TRUE, TRUE,10);
    
