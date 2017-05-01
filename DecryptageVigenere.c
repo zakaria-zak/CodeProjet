@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <gtk/gtk.h>
 
@@ -19,6 +18,17 @@ typedef struct ressourceslangue{
 	PHONEME tr[25];
 }RESSOURCESLANGUE;
 int Kasiski(ANALYSE freq, gchar* texteCrypte){
+	int distance[10];
+	int i,j,kas;
+	//	for(i=0 ; i<freq.nb; i++){
+	//		if(pgor[0] = gchar[i])    			//si le 1er caractère du pgor est égale au ième caractère du texte crypté
+	//			if(pgor[1] = gchar[i+1])		//si le 2eme caractère du pgor est égale au (i+1)ème caractère du texte crypté
+	//		 		if(pgor[2] = gchar[i+1])	//si le 3eme caractère du pgor est égale au (i+2)ème caractère du texte crypté	
+	//					distance[j] = i;		//stock la position de loccurence rencontrer dans le tableau
+	//}
+	// kas =  PGCD(distance[], j)
+	
+	
 	return 4;
 }
 	
@@ -43,10 +53,22 @@ gchar* decrypteur( int cle[], int kasiski, gchar* texteCrypte){
 RESSOURCESLANGUE TabRessource(){
 	RESSOURCESLANGUE tabre;
 	int i;
-	for (i = 0; i < 25; i++)
-	{
-		tabre.occ[i] = 2;	
-	};
+	
+		tabre.occ[0] = 7.11; 	/*a*/		tabre.occ[14] = 5.02;	/*o*/
+		tabre.occ[1] = 1.14;    /*b*/		tabre.occ[15] = 2.49;	/*p*/	
+		tabre.occ[2] = 3.18; 	/*c*/		tabre.occ[16] = 0,65;	/*q*/
+		tabre.occ[3] = 3.67; 	/*d*/		tabre.occ[17] = 6.07;	/*r*/
+		tabre.occ[4] = 12.10 ;	/*e*/		tabre.occ[18] = 6.51;	/*s*/
+		tabre.occ[5] = 1.11; 	/*f*/		tabre.occ[19] = 5.92;	/*t*/
+		tabre.occ[6] = 1.23; 	/*g*/		tabre.occ[20] = 4.49;	/*u*/
+		tabre.occ[7] = 1.11; 	/*h*/		tabre.occ[21] = 1.11;	/*v*/
+		tabre.occ[8] = 6.59; 	/*i*/		tabre.occ[22] = 0.17;	/*w*/
+		tabre.occ[9] = 0.34; 	/*j*/		tabre.occ[23] = 0.38;	/*x*/
+		tabre.occ[10] = 0.29; 	/*k*/		tabre.occ[24] = 0.46;	/*y*/
+		tabre.occ[11] = 4.96; 	/*l*/		tabre.occ[25] = 0.15;	/*z*/
+		tabre.occ[12] = 2.62;	/*m*/
+		tabre.occ[13] = 6.39;	/*n*/
+		
 	return tabre;
 }
 ANALYSE AnalyseFrequentielle(gchar* TextClair){
@@ -65,8 +87,9 @@ ANALYSE AnalyseFrequentielle(gchar* TextClair){
 	freq.occ[10] = 0.11; freq.occ[24] = 0.24;
 	freq.occ[11] = 0.12; freq.occ[25] = 0.25;
 	freq.occ[12] = 0.13; 
-
-		
+	
+	freq.pgor = "aaa"; //definiton du pgor
+	freq.nb = 200;		// nombre de caractères dans le texte crypté
 	return freq;
 };
 gchar* DecryptageVigenere(gchar* texteCrypte, gchar* safecle){
@@ -86,14 +109,18 @@ gchar* DecryptageVigenere(gchar* texteCrypte, gchar* safecle){
 	}
 printf(" \n  premiere valeur des proba : %f \n", don.occ[0]);
 printf(" \n  premiere valeur des fréquences : %f \n", req.occ[0]);
-printf(" \n  taille de la clef : %d \n", kasiski); 
+printf(" \n  taille de la clef : %d \n", kasiski);
+printf(" \n  pgor trouver : %s \n", req.pgor);
+ 
 	return texteCrypte;
 }
 
 int main(int argc, char **argv)
 {
-	gchar texteCrypte, sauvegardecle;
+	gchar texteCrypte, sauvegardecle, texteDecrypte;
 	//texteCrypte = "coucou"; // COMMENT DECLARER LE TEXTE ? (pointeur ou pas?)
-	DecryptageVigenere( &texteCrypte, &sauvegardecle); 
+	DecryptageVigenere( &texteCrypte, &sauvegardecle); //decryptage doit stocker son résultat dans un gchar 
 	return 0; 
 }	
+
+
