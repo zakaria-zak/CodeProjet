@@ -17,6 +17,8 @@ void MenuDecryptageSubstitution(GtkWidget *Fenetre);
 void MenuDecryptageVigenere(GtkWidget *Fenetre);
 void MenuAnalyseFrequentielle(GtkWidget *Fenetre);
 void MenuResultatSubstitution(GtkWidget *Fenetre, gchar* Text_crypt);
+void ViderContenaire(GtkContainer * container);
+
 
 gchar* CryptageSubstitution(gchar* TexteClair)
 {
@@ -102,10 +104,11 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre)
     gtk_widget_show_all(Fenetre);
 }
 
-void modifieLangue(GtkWidget *Fenetre, gpointer *lang)
+void modifieLangue(GtkWidget *Fenetre, int lang)
 {
-    //printf("%d\n", lang);
-    if (*lang==0)
+    //int *n=lang;
+    //printf("%d\n", &n);
+    if (lang==0)
     {
         langue=0;
     }
@@ -145,7 +148,7 @@ void ChoisirLangue()
 
     gtk_label_set_justify(GTK_LABEL(Label_text), GTK_JUSTIFY_CENTER);
 
-    g_signal_connect(G_OBJECT(bouton1), "clicked", G_CALLBACK(modifieLangue), (gpointer)&i );
+    g_signal_connect(G_OBJECT(bouton1), "clicked", G_CALLBACK(modifieLangue), i );
 
     gtk_box_pack_start(GTK_BOX(Boite), Label_text, TRUE, FALSE,0);
 
@@ -153,7 +156,7 @@ void ChoisirLangue()
 
     bouton2=gtk_button_new_with_label("Anglais");
 
-    g_signal_connect(G_OBJECT(bouton2), "clicked", G_CALLBACK(modifieLangue), (gpointer)&j);
+    g_signal_connect(G_OBJECT(bouton2), "clicked", G_CALLBACK(modifieLangue), j);
 
     gtk_box_pack_start(GTK_BOX(Boite), bouton2, TRUE, TRUE,10);
    
@@ -1113,8 +1116,8 @@ void MenuCryptageSubstitution(GtkWidget *Fenetre)
     
     Bouton1 = gtk_button_new_with_label("Rentrer un texte ");
 
-    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(BoiteDialogueSubstitution), NULL);
-   
+    //g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(BoiteDialogueSubstitution), NULL);
+    g_signal_connect(G_OBJECT(Bouton1), "clicked", G_CALLBACK(ChoisirLangue), NULL);
     gtk_box_pack_start(GTK_BOX(Box), Bouton1, TRUE, TRUE, 0);
     
     Bouton2 = gtk_button_new_with_label("choisir un fichier");
@@ -1290,6 +1293,7 @@ void MenuCryptage(GtkWidget *Fenetre)
 
 void MenuPrincipal(GtkWidget *Fenetre)
 {
+    printf("langue = %d\n",langue);
     Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
 	ViderContenaire(GTK_CONTAINER(Fenetre));//on la vide
 	GtkWidget *Box, *Label;
@@ -1345,8 +1349,8 @@ int main(int argc, char **argv)
     g_signal_connect(G_OBJECT(Fenetre), "destroy", G_CALLBACK(gtk_main_quit), NULL);
     
     //MenuPrincipal(Fenetre);
-    MenuResultatDecryptagePartiel(Fenetre);
-    
+    //MenuResultatDecryptagePartiel(Fenetre);
+    MenuCryptageSubstitution(Fenetre);
  
     gtk_main();
  
