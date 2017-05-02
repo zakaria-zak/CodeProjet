@@ -19,20 +19,21 @@ typedef struct ressourceslangue{
 }RESSOURCESLANGUE;
 int Kasiski(ANALYSE freq, gchar* texteCrypte){
 	int distance[10];
-	int i,j,kas;
+	int i,j,kas,taillepgor;
 	//	for(i=0 ; i<freq.nb; i++){
-	//		if(pgor[0] = gchar[i])    			//si le 1er caractère du pgor est égale au ième caractère du texte crypté
-	//			if(pgor[1] = gchar[i+1])		//si le 2eme caractère du pgor est égale au (i+1)ème caractère du texte crypté
-	//		 		if(pgor[2] = gchar[i+1])	//si le 3eme caractère du pgor est égale au (i+2)ème caractère du texte crypté	
-	//					distance[j] = i;		//stock la position de loccurence rencontrer dans le tableau
 	//}
 	// kas =  PGCD(distance[], j)
-	
-	
+	//SOLUTION YOUNES :
+	//		ABIO . strlen => me donne la taille soit 4.
+	//				strcut(4) => je découpe en morceau de 4 et je test si strcut(4) = ABIO
+	//															si oui, jenregistre la position i
+	//	CODE:															sinon je continu
+	// taille = strlen(freq.pgor)
+	// strcut(texteCrypte,taille)
 	return 4;
 }
 	
-void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar* safecle)
+void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar** safecle)
 { 
 	int mg[25][kasiski];
 	int i,j;
@@ -46,9 +47,11 @@ void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob,
 cle[0]=12;
 cle[1]=2;
 cle[2]=7;
+*safecle = "coucouSAFE";
 }
 gchar* decrypteur( int cle[], int kasiski, gchar* texteCrypte){
-	int test; test =1;
+	texteCrypte = "Decrypte";
+	return texteCrypte;
 	}
 RESSOURCESLANGUE TabRessource(){
 	RESSOURCESLANGUE tabre;
@@ -88,39 +91,49 @@ ANALYSE AnalyseFrequentielle(gchar* TextClair){
 	freq.occ[11] = 0.12; freq.occ[25] = 0.25;
 	freq.occ[12] = 0.13; 
 	
-	freq.pgor = "aaa"; //definiton du pgor
+	freq.pgor = "abio"; //definiton du pgor
 	freq.nb = 200;		// nombre de caractères dans le texte crypté
 	return freq;
 };
-gchar* DecryptageVigenere(gchar* texteCrypte, gchar* safecle){
+gchar* DecryptageVigenere(gchar* texteCrypte, gchar **safecle){
 	RESSOURCESLANGUE don;
 	ANALYSE req;
 	int i,kasiski;
-		
+	//safecle = malloc(sizeof(char)*20);
 	don = TabRessource();  // remplie la structure avec les proba de la langue choisi.
 	req = AnalyseFrequentielle(texteCrypte); //remplie la structure avec les fréquences du texte
 	kasiski = Kasiski(req, texteCrypte); //recupere le PGOR (ou tri) et le texte clair, retourne taille cle
 	int cle[kasiski];
-	indiceMutuelle(cle, 3, req, don, safecle);
-	decrypteur(cle, kasiski, texteCrypte);
+    texteCrypte = "MAJ";
+	*safecle = "sauvegarde";
+	indiceMutuelle(cle, 3, req, don, safecle);  // LA CHAINE SAFECLE NEST PAS MODIFIER PAR LA FONCTION
+	
+	texteCrypte = decrypteur(cle, kasiski, texteCrypte);
 		
 	for (i = 0; i < 3; i++){
 		printf(" \n valeur cle[%d] = %d \n", i, cle[i]); // printf(" \n cle[0] = %d \n", cle[0]);
 	}
-printf(" \n  premiere valeur des proba : %f \n", don.occ[0]);
-printf(" \n  premiere valeur des fréquences : %f \n", req.occ[0]);
-printf(" \n  taille de la clef : %d \n", kasiski);
-printf(" \n  pgor trouver : %s \n", req.pgor);
- 
+//printf(" \n  premiere valeur des proba : %f \n", don.occ[0]);
+//printf(" \n  premiere valeur des fréquences : %f \n", req.occ[0]);
+//printf(" \n  taille de la clef : %d \n", kasiski);
+//printf(" \n  pgor trouver : %s \n", req.pgor);
+
 	return texteCrypte;
 }
 
 int main(int argc, char **argv)
 {
-	gchar texteCrypte, sauvegardecle, texteDecrypte;
-	//texteCrypte = "coucou"; // COMMENT DECLARER LE TEXTE ? (pointeur ou pas?)
-	DecryptageVigenere( &texteCrypte, &sauvegardecle); //decryptage doit stocker son résultat dans un gchar 
+	gchar *texteCrypte, **sauvegardecle, *texteDecrypte;
+	texteCrypte = "Leabiotexteestabiocrypteetilvaabiofalloirsenoccuper"; 
+	*sauvegardecle = "init_cle";
+	texteDecrypte = DecryptageVigenere( texteCrypte, sauvegardecle); // LES CHAINES NE SONT PAS MODIFIER PAR LA FONCTION 
+	
+	printf(" \n  texteDecrypte trouver : %s \n", texteDecrypte); 
+	printf(" \n  cle sauvegarde 4 : %s \n", *sauvegardecle); 
+	
 	return 0; 
 }	
+
+// LES CHAINES NE SONT PAS MODIFIER => recherche google : comment modifier une chaine de caractere passer en argument d'une fonction
 
 
