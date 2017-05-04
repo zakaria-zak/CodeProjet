@@ -22,6 +22,8 @@ void ViderContenaire(GtkContainer * container);
 void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle);
 void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gchar* cle);
 void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Text_crypt , gchar* cle);
+void MenuResultatAnalyse(GtkWidget *Fenetre,gchar *analyse);
+void BoiteDialogueVigenere(GtkWidget *Fenetre);
 
 gchar* CryptageSubstitution(gchar* TexteClair)
 {
@@ -41,6 +43,11 @@ gchar* CryptageVigenere(gchar* TexteClair, gchar* Cle)
 gchar* DecryptageVigenere(gchar* TexteClair)
 {
     return TexteClair;
+}
+
+gchar* AnalyseFrequentielle(gchar* Text)//modifier pour structure analyse
+{
+	return Text;
 }
 
 void MenuResultatDecryptagePartiel(GtkWidget *Fenetre)
@@ -222,19 +229,26 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
 	case 1:
 		text_crypte=CryptageSubstitution(contenu);
   		MenuResultatSubstitution(Fenetre,text_crypte);
-  	break;
+  		break;
 	case 2:
-		text_crypte=CryptageVigenere(contenu,contenu);//ici
-  		MenuResultatVigenere(Fenetre,text_crypte,text_crypte);
-  	break;
+	
+		text_crypte=CryptageVigenere(contenu,contenu);
+		MenuResultatVigenere(Fenetre,text_crypte,text_crypte);
+		
+  		break;
 	case 3:
   		text_clair=DecryptageSubstitution(contenu);
   		MenuResultatDecryptageSubstitution(Fenetre,text_clair,text_clair);
-  	break;
+  		break;
 	case 4:
   		text_clair=DecryptageVigenere(contenu);
   		MenuResultatDecryptageVigenere(Fenetre,text_clair,text_clair);
-  	break;
+  		break;
+  	case 5:
+  		text_clair=AnalyseFrequentielle(contenu);
+  		MenuResultatAnalyse(Fenetre,text_clair);
+  		break;
+
 }
     
     gtk_dialog_run(GTK_DIALOG(dialog));
@@ -372,7 +386,7 @@ void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle)
     gtk_widget_show_all(Fenetre);
 }
 
-void MenuResultatAnalyse(GtkWidget *Fenetre)
+void MenuResultatAnalyse(GtkWidget *Fenetre,gchar *analyse)
 {
     Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
     ViderContenaire(GTK_CONTAINER(Fenetre));//on la vide
@@ -387,7 +401,7 @@ void MenuResultatAnalyse(GtkWidget *Fenetre)
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
 
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">resultat d'etude de texte</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Par substitution</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">resultat d'etude de texte</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -403,7 +417,7 @@ void MenuResultatAnalyse(GtkWidget *Fenetre)
 
     ////////////Affichage du resultat//////////////
 
-    gtk_label_set_markup(GTK_LABEL(Label_msg), "ici le texte");
+    gtk_label_set_markup(GTK_LABEL(Label_msg), analyse);
     gtk_label_set_justify(GTK_LABEL(Label_msg), GTK_JUSTIFY_CENTER);
     gtk_box_pack_start(GTK_BOX(Box), Label_msg, TRUE, TRUE, 0);
 
@@ -589,70 +603,80 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
 
 void BoiteDialogueVigenere(GtkWidget *Fenetre)
 {
-    GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_text,*Label_cle;
-    gchar *Text_clair,*Text_crypt,*cle,*msg,*indication_cle;
-    GtkTextBuffer* Buffer;
-    GtkTextIter debut;
-    GtkTextIter fin;
-    Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
-    Boite = gtk_dialog_new_with_buttons("Sasie du texte",GTK_WINDOW(Fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
 
-    Label_text=gtk_label_new(NULL);
-    Label_cle=gtk_label_new(NULL);
+	    GtkWidget *Boite,*Entrer,*Entrer_cle,*Label_text,*Label_cle;
+	    gchar *Text_crypt,*Text_clair,*cle,*msg,*indication_cle;
+	    GtkTextBuffer* Buffer;
+	    GtkTextIter debut;
+	    GtkTextIter fin;
+	    Fenetre = gtk_widget_get_toplevel (Fenetre);//on passe a la fenetre du bouton 
+	    Boite = gtk_dialog_new_with_buttons("Sasie du texte",GTK_WINDOW(Fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
 
-     msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Votre texte : </span>\n",
-           -1, NULL, NULL, NULL);
+	    Label_text=gtk_label_new(NULL);
+	    Label_cle=gtk_label_new(NULL);
+	    
+	    	msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Votre texte : </span>\n",
+	           -1, NULL, NULL, NULL);
+	   
 
-    indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Votre cle : </span>\n",
-           -1, NULL, NULL, NULL);
+	    indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Votre cle : </span>\n",
+	           -1, NULL, NULL, NULL);
+	    
+	   
+	   		
+	    	Entrer= gtk_text_view_new();
 
-    Entrer= gtk_text_view_new();
+	    	gtk_label_set_markup(GTK_LABEL(Label_text), msg);
 
-    gtk_label_set_markup(GTK_LABEL(Label_text), msg);
+	    	gtk_label_set_justify(GTK_LABEL(Label_text), GTK_JUSTIFY_CENTER);
 
-    gtk_label_set_justify(GTK_LABEL(Label_text), GTK_JUSTIFY_CENTER);
-
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Label_text, TRUE, FALSE,0);
+	    	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Entrer, TRUE, TRUE,10);
 
 
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Entrer, TRUE, TRUE,10);
+	    
+	   
+	    
 
-    Entrer_cle=gtk_text_view_new();
+	    Entrer_cle=gtk_text_view_new();
 
-    gtk_label_set_markup(GTK_LABEL(Label_cle), indication_cle);
+	    gtk_label_set_markup(GTK_LABEL(Label_cle), indication_cle);
 
-    gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
+	    gtk_label_set_justify(GTK_LABEL(Label_cle), GTK_JUSTIFY_CENTER);
 
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Label_cle, TRUE, FALSE,0);
+	    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Label_cle, TRUE, FALSE,0);
+	    
+	    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Entrer_cle, TRUE, TRUE,10);
+	    
+	    gtk_widget_show_all(GTK_DIALOG(Boite)->vbox);
 
-    gtk_box_pack_start(GTK_BOX(GTK_DIALOG(Boite)->vbox), Entrer_cle, TRUE, TRUE,10);
-
-    gtk_widget_show_all(GTK_DIALOG(Boite)->vbox);
-
-    switch(gtk_dialog_run(GTK_DIALOG(Boite)))
-        {
-            case GTK_RESPONSE_OK:
-                Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer));
-                gtk_text_buffer_get_start_iter(Buffer,&debut);
-                gtk_text_buffer_get_end_iter(Buffer,&fin);
-                Text_clair = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer_cle));
-                gtk_text_buffer_get_start_iter(Buffer,&debut);
-                gtk_text_buffer_get_end_iter(Buffer,&fin);
-                cle = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                Text_crypt = CryptageVigenere(Text_clair, cle);
-                MenuResultatVigenere(Fenetre, Text_crypt, cle);
-                 //on rajoutera plus tard la cle de sub
-                // ici on doit pouvoir sauvegarder le texte dans la variable Nom
-                g_free(Text_clair);//si plus besoin
-                break;
-            case GTK_RESPONSE_CANCEL:
-            case GTK_RESPONSE_NONE:
-            default:
-                break;
-        }
-        
-    gtk_widget_destroy(Boite);
+	    switch(gtk_dialog_run(GTK_DIALOG(Boite)))
+	        {
+	            case GTK_RESPONSE_OK:
+		            Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer));
+		            gtk_text_buffer_get_start_iter(Buffer,&debut);
+		            gtk_text_buffer_get_end_iter(Buffer,&fin);
+		            Text_clair = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
+		      
+		        	
+		           
+	                Buffer= gtk_text_view_get_buffer(GTK_TEXT_VIEW(Entrer_cle));
+	                gtk_text_buffer_get_start_iter(Buffer,&debut);
+	                gtk_text_buffer_get_end_iter(Buffer,&fin);
+	                cle = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
+	                Text_crypt = CryptageVigenere(Text_clair, cle);
+	                MenuResultatVigenere(Fenetre, Text_crypt, cle);
+	                 //on rajoutera plus tard la cle de sub
+	                // ici on doit pouvoir sauvegarder le texte dans la variable Nom
+	                g_free(Text_clair);//si plus besoin
+	                break;
+	            case GTK_RESPONSE_CANCEL:
+	            case GTK_RESPONSE_NONE:
+	            default:
+	                break;
+	        }
+	        
+	    gtk_widget_destroy(Boite);
+	
 }
 
 void BoiteDialogueAnalyse(GtkWidget *Fenetre)
@@ -678,8 +702,8 @@ void BoiteDialogueAnalyse(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                //on appele la fonction d'etude de texte 
-                MenuResultatAnalyse(Fenetre);//on envoi le tableau ici
+                Text=AnalyseFrequentielle(Text);//changer pour travailler avec analyse
+                MenuResultatAnalyse(Fenetre,Text);
                 break;
             case GTK_RESPONSE_CANCEL:
             case GTK_RESPONSE_NONE:
@@ -875,7 +899,7 @@ void MenuCryptageVigenere(GtkWidget *Fenetre)
     Fenetre = gtk_widget_get_toplevel (Fenetre);
 	ViderContenaire(GTK_CONTAINER(Fenetre));
 	GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
-    gchar* Text;
+    gchar *Text;
     GtkWidget* zone_t;
     choix=2;
     
@@ -956,7 +980,7 @@ void MenuAnalyseFrequentielle(GtkWidget *Fenetre)
 	GtkWidget *Box,*Bouton1, *Bouton2, *Bouton3,*Box_2, *Label;
     gchar* Text;
     GtkWidget* zone_t;
-    
+    choix=5;
     Box = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
     Box_2 = gtk_hbox_new(FALSE, 0);
@@ -1121,7 +1145,8 @@ int main(int argc, char **argv)
  * le travail a fournir 
 recuperer chemin faut mettre les clées 
 il faut mettre une barre de progression pour eviter les seg faults (fait 70% )
-choisir fichier pour analyse freq
+choisir fichier pour analyse freq(fait)
+changer le nom de choisirlangue
 
 * les problemes rencontrés 
 il ya des seg fault quand on fait 2 enregistrement du texte
