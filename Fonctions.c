@@ -1,129 +1,81 @@
-#include "definitions.h"
-#include "graphe.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <gtk/gtk.h>
+#include "string.h"
 
-int getExperience()
-{//connaitre l'experience du skieur
-	char c;
-	while(1){
-		printf("\n\n\nEtes vous debutant o/n ?\n");
-		scanf("%c",&c);
-		if (c == 'o')
-			return 1;
-		if (c == 'n')
-			return 0;
-		scanf("%c",&c);	//libere le buffer
-	}
-}
-
-int calculPoids(int couleur, int temps, int experience)
-{//convertit la couleur et le temps de l'arc en poids, en fonction de l'experience du skieur
-	//0Vert 1Bleu 2Rouge 3Noir
-	if (couleur==0)
-		return temps;
-	if (couleur==1)
-		return (experience*temps + temps);
-	if (couleur==2)
-		return (experience*2*temps + temps);
-	if (couleur==3)
-		return (experience*3*temps + temps);
-	return 0;
-}
-
-void initialise_tableau_antecedant(antecedant a[])
-{//initialise le tableau antecedant
-	int i;
-	for (i = 0; i < V; i++)
-	{
-		a[i].sommet=i;
-		a[i].pere=-1;
-	}
-}
-
-void initialise_tableau_parcour(parcour p[],int depart)
-{//initialise le tableau parcour
-	int i;
-	for (i = 0; i < V; i++)
-	{
-		p[i].sommet=i;
-		p[i].parcouru= 0;
-		p[i].poid=G[depart][i].poids;
-	}
-
-}
-
-int recherche_pere(parcour p[])
-{//recherche le sommet de poid minimum (le poid=1000 a modifier)
-	int indice_pere=0;
-	while((p[indice_pere].poid<1)&&(indice_pere<(V-1))) indice_pere++;
-	int i;
-	for (i = (indice_pere+1); i < V; i++)
-	{
-		if( ( p[i].poid < p[indice_pere].poid ) && ( p[i].poid > 0 ) && (p[i].parcouru!=1))
-			indice_pere = i;
-	}
-	if(( p[indice_pere].poid < 1 ) || (p[indice_pere].parcouru == 1 ))
-		return -1;
-	return indice_pere;
-}
-
-int recherche_fils(int pere,int f[])
-{//recherche tout les fils de pere 
-	int nombre_fils=0;
-	int i;
-	for (i = 0; i < V; i++)
-	{
-		if ( G[pere][i].poids < 1000 ){
-			f[nombre_fils] = i;
-			nombre_fils++;
-		}
-	}
-	return nombre_fils;
-}
-
-void dijstra(int depart,int arrivee,antecedant a[],parcour p[])
+void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[])
 {
-	int pere=depart; 
-	int i,j,fils;
-	int f[10];
-	if (depart==arrivee){
-		 printf("Vous etes deja a destination '%s'\n\n\n",nomSommet(depart));
-		return;}
-	while(pere!=-1)
-	{
-			printf("le pere est %d\n",pere);
-		int nbf=recherche_fils(pere,f);
-		for (i = 0; i < nbf; i++)
-		{
-			fils=f[i];
-			printf("le fils est %d\n",fils);
-			if((p[fils].parcouru==0)&&((p[fils].poid==-1)||(p[pere].poid+G[pere][fils].poids<p[fils].poid)))
+    int i,j = 0, lg;
+    lg = strlen(chaine);
+    
+    for(i=0; i<lg; i++)
+    {	
+        if(chaine[i] != ' ' && chaine[i] != '\t' && chaine[i] != '\'' && chaine[i] != '\"') // Si c'ets pas un des ces caractere
+        {
+            copy[j] = chaine[i];
+            
+            if(copy[j] > 64 && copy[j] < 91) // Si C'est une majuscule
 			{
-				p[fils].poid=p[pere].poid+G[pere][fils].poids;
-				a[fils].pere=pere;
+				copy[j] = chaine[i] + 32;
+			}
+			
+            j++;
+        }
+    }
+    copy[j] = '\0';
+}
+
+void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
+	
+	int i,j=0,doute = 0;
+	gchar Tab[strlen(Texte)];
+	RetirerCarSpecMajuscule(Texte,Tab);
+	int taille = strlen(Tab);
+	*TailleTexte = taille;
+	
+	for(i=0;i<taille;i++){
+		gchar c = Tab[i];
+		
+		if(doute){
+			doute = 0;
+			if(c == -85 || c == -86 || c == -87 || c == -88){
+				T[j] = 'e';
+				j++;
+			}
+			else if(c == -92 || c == -94 || c == -96){
+				T[j] = 'a';
+				j++;
+			}
+			else if(c == -68 || c == -69){
+				T[j] = 'u';
+				j++;
+			}
+			else if(c == -81 || c == -82){
+				T[j] = 'i';
+				j++;
 			}
 		}
-		p[pere].parcouru=1;
-		pere=recherche_pere(p);
+		else{
+			doute = c == -61;
+			if(doute) continue;
+			T[j] = c;
+			j++;
+		}
 	}
-	//#############affichage####################
-	int chemin[50];
-	i=0;
-	while(-1!=arrivee)
-	{
-		chemin[i]=arrivee;
-		i++;
-		arrivee=a[arrivee].pere;
-	} 
-	chemin[i]=depart;
-	i++;
-	for (j = 0; j < i-1 ; j++) 
-	{
-		printf("%d ) vous devez partir du sommet '%s' et prendre '%s' jusqu'au sommet '%s'\n\n",j,nomSommet(chemin[i-j-1]),G[chemin[i-j-1]][chemin[i-j-2]].nom,nomSommet(chemin[i-j-2]));
-	}
-	printf("%d ) vous etes arrivé a votre destination '%s' en %d secondes\n\n\n",j,nomSommet(chemin[0]),p[chemin[0]].poid);
+	T[j] = '\0';
+	 
 }
 
-
+int main(){
+	
+	gchar* copie = "SaLUUUt j'apelle  L'ANalyse de Tkt pas c'est la folie Ras   eëêéèaäâàuüûiïî";
+	gchar Newtab[strlen(copie)];
+	int taille;
+	ConvertisseurTableau(Newtab,&taille,copie);
+	
+	printf("\n %s \n", Newtab);
+	
+		
+	
+	return 0;
+}
