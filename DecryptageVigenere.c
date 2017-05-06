@@ -5,49 +5,71 @@ typedef struct phoneme{
 	int frequence;
 	gchar* nom;
 }PHONEME;
-typedef struct analyse{ 
+typedef struct analyse{ //fréquence
 	int nb; 
 	float occ[25];
 	PHONEME di[25]; 
 	PHONEME tr[25];
 	gchar* pgor;
 }ANALYSE;
-typedef struct ressourceslangue{
+typedef struct ressourceslangue{ //probabilité
 	float occ[25];
 	PHONEME di[25];
 	PHONEME tr[25];
 }RESSOURCESLANGUE;
+int longueurChaine(const char* chaine)
+{
+    int nombreDeCaracteres = 0;
+    char caractereActuel = 0;
+    do
+    {
+        caractereActuel = chaine[nombreDeCaracteres];
+        nombreDeCaracteres++;
+    }
+    while(caractereActuel != '\0'); // On boucle tant qu'on n'est pas arrivé à l'\0
+    nombreDeCaracteres--; // On retire 1 caractère de long pour ne pas compter le caractère \0
+    return nombreDeCaracteres;
+}
 int Kasiski(ANALYSE freq, gchar* texteCrypte){
 	int distance[10];
 	int i,j,kas,taillepgor;
-	//	for(i=0 ; i<freq.nb; i++){
-	//}
-	// kas =  PGCD(distance[], j)
-	//SOLUTION YOUNES :
+
 	//		ABIO . strlen => me donne la taille soit 4.
 	//				strcut(4) => je découpe en morceau de 4 et je test si strcut(4) = ABIO
 	//															si oui, jenregistre la position i
-	//	CODE:															sinon je continu
-	// taille = strlen(freq.pgor)
-	// strcut(texteCrypte,taille)
+	taillepgor = longueurChaine(freq.pgor);
+	// test = strcut
+	// identique = strcmp(freq.pgor, test);
+	//if(freq.pgor = strcut(texteCrypte,taille))
+	// 
+	//	for(i=0 ; i<freq.nb; i++){
+	//		if(test[taille] = textCrypt[i]){  //si la chaine test correspond a la ième chaine , alors stock le i dans distance[j]
+	//				distance[j] = i;
+	//					j++;}
+	//	}
+	// kas =  PGCD(distance[], j)
 	return 4;
 }
 	
 void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar** safecle)
 { 
-	int mg[25][kasiski];
+	float mg[25][kasiski];
+	int w; // w = n/m
 	int i,j;
-	for (j = 0; j < kasiski; j++)
+	w = freq.nb/kasiski;
+	for (j = 0; j < kasiski; j++)	//Ici, on remplie le tableau Mg 
 	{
 		for (i = 0; i < 25; i++)
 		{
-					
+					mg[i][j] = (prob.occ[i]*freq.occ[i+j])/w;
 		}
 	}
+	
 cle[0]=12;
 cle[1]=2;
 cle[2]=7;
 *safecle = "coucouSAFE";
+printf(" \n valeur tableau mg: %f \n", mg[0][0]);
 }
 gchar* decrypteur( int cle[], int kasiski, gchar* texteCrypte){
 	texteCrypte = "Decrypte";
@@ -57,49 +79,50 @@ RESSOURCESLANGUE TabRessource(){
 	RESSOURCESLANGUE tabre;
 	int i;
 	
-		tabre.occ[0] = 7.11; 	/*a*/		tabre.occ[14] = 5.02;	/*o*/
-		tabre.occ[1] = 1.14;    /*b*/		tabre.occ[15] = 2.49;	/*p*/	
-		tabre.occ[2] = 3.18; 	/*c*/		tabre.occ[16] = 0,65;	/*q*/
-		tabre.occ[3] = 3.67; 	/*d*/		tabre.occ[17] = 6.07;	/*r*/
-		tabre.occ[4] = 12.10 ;	/*e*/		tabre.occ[18] = 6.51;	/*s*/
-		tabre.occ[5] = 1.11; 	/*f*/		tabre.occ[19] = 5.92;	/*t*/
-		tabre.occ[6] = 1.23; 	/*g*/		tabre.occ[20] = 4.49;	/*u*/
-		tabre.occ[7] = 1.11; 	/*h*/		tabre.occ[21] = 1.11;	/*v*/
-		tabre.occ[8] = 6.59; 	/*i*/		tabre.occ[22] = 0.17;	/*w*/
-		tabre.occ[9] = 0.34; 	/*j*/		tabre.occ[23] = 0.38;	/*x*/
-		tabre.occ[10] = 0.29; 	/*k*/		tabre.occ[24] = 0.46;	/*y*/
-		tabre.occ[11] = 4.96; 	/*l*/		tabre.occ[25] = 0.15;	/*z*/
-		tabre.occ[12] = 2.62;	/*m*/
-		tabre.occ[13] = 6.39;	/*n*/
+		tabre.occ[0] = 7.68; 	/*a*/		tabre.occ[14] = 5.34;	/*o*/
+		tabre.occ[1] = 0.80;    /*b*/		tabre.occ[15] = 3.24;	/*p*/	
+		tabre.occ[2] = 3.32; 	/*c*/		tabre.occ[16] = 1,34;	/*q*/
+		tabre.occ[3] = 3.60; 	/*d*/		tabre.occ[17] = 6.81;	/*r*/
+		tabre.occ[4] = 17.76 ;	/*e*/		tabre.occ[18] = 8.23;	/*s*/
+		tabre.occ[5] = 1.06; 	/*f*/		tabre.occ[19] = 7.30;	/*t*/
+		tabre.occ[6] = 1.10; 	/*g*/		tabre.occ[20] = 6.05;	/*u*/
+		tabre.occ[7] = 0.64; 	/*h*/		tabre.occ[21] = 1.27;	/*v*/
+		tabre.occ[8] = 7.23; 	/*i*/		tabre.occ[22] = 0.17;	/*w*/
+		tabre.occ[9] = 0.19; 	/*j*/		tabre.occ[23] = 0.54;	/*x*/
+		tabre.occ[10] = 0.29; 	/*k*/		tabre.occ[24] = 0.21;	/*y*/
+		tabre.occ[11] = 5.89; 	/*l*/		tabre.occ[25] = 0.07;	/*z*/
+		tabre.occ[12] = 2.72;	/*m*/
+		tabre.occ[13] = 7.61;	/*n*/
 		
 	return tabre;
 }
 ANALYSE AnalyseFrequentielle(gchar* TextClair){
 	int i;
 	ANALYSE freq;
-	freq.occ[0] = 0.01;  freq.occ[14] = 0.14;
-	freq.occ[1] = 0.02;  freq.occ[15] = 0.15;
-	freq.occ[2] = 0.03;  freq.occ[16] = 0.16;
-	freq.occ[3] = 0.04;  freq.occ[17] = 0.17;
-	freq.occ[4] = 0.05;  freq.occ[18] = 0.18;
-	freq.occ[5] = 0.06;  freq.occ[19] = 0.19;
-	freq.occ[6] = 0.07;  freq.occ[20] = 0.2;
-	freq.occ[7] = 0.08;  freq.occ[21] = 0.21;
-	freq.occ[8] = 0.09;  freq.occ[22] = 0.22;
- 	freq.occ[9] = 0.1;   freq.occ[23] = 0.23;
-	freq.occ[10] = 0.11; freq.occ[24] = 0.24;
-	freq.occ[11] = 0.12; freq.occ[25] = 0.25;
-	freq.occ[12] = 0.13; 
+	freq.occ[0] = 1.14;		/*a*/		freq.occ[14] = 3.57;	/*o*/
+	freq.occ[1] = 0;	  	/*b*/		freq.occ[15] = 8.93;	/*p*/
+	freq.occ[2] = 5.68;  	/*c*/		freq.occ[16] = 4.22;	/*q*/
+	freq.occ[3] = 1.95;  	/*d*/		freq.occ[17] = 3.9;		/*r*/
+	freq.occ[4] = 4.71;  	/*e*/		freq.occ[18] = 2.6;		/*s*/
+	freq.occ[5] = 2.92;  	/*f*/		freq.occ[19] = 6.82;	/*t*/
+	freq.occ[6] = 9.09;  	/*g*/		freq.occ[20] = 3.08;	/*u*/
+	freq.occ[7] = 1.62;  	/*h*/		freq.occ[21] = 5.19;	/*v*/
+	freq.occ[8] = 5.68;  	/*i*/		freq.occ[22] = 5.52;	/*w*/
+ 	freq.occ[9] = 0.16;   	/*j*/		freq.occ[23] = 4.06;	/*x*/
+	freq.occ[10] = 3.25; 	/*k*/		freq.occ[24] = 5.68;	/*y*/
+	freq.occ[11] = 3.25; 	/*l*/		freq.occ[25] = 2.44;	/*z*/
+	freq.occ[12] = 2.44; 	/*m*/
+	freq.occ[12] = 2.11; 	/*n*/
 	
 	freq.pgor = "abio"; //definiton du pgor
-	freq.nb = 200;		// nombre de caractères dans le texte crypté
+	freq.nb = 616;		// nombre de caractères dans le texte crypté
 	return freq;
 };
 gchar* DecryptageVigenere(gchar* texteCrypte, gchar **safecle){
 	RESSOURCESLANGUE don;
 	ANALYSE req;
 	int i,kasiski;
-	//safecle = malloc(sizeof(char)*20);
+	
 	don = TabRessource();  // remplie la structure avec les proba de la langue choisi.
 	req = AnalyseFrequentielle(texteCrypte); //remplie la structure avec les fréquences du texte
 	kasiski = Kasiski(req, texteCrypte); //recupere le PGOR (ou tri) et le texte clair, retourne taille cle
@@ -124,7 +147,8 @@ gchar* DecryptageVigenere(gchar* texteCrypte, gchar **safecle){
 int main(int argc, char **argv)
 {
 	gchar *texteCrypte, **sauvegardecle, *texteDecrypte;
-	texteCrypte = "Leabiotexteestabiocrypteetilvaabiofalloirsenoccuper"; 
+	texteCrypte = "VtxwwekcifffcngcwewcicewetipemhtuwpivlgvfinwioprvprntggyggompqstxevtuwpngdswsekeiopxvcicavqqmvwivpqrdpkmvgospengomuasuptgyhcyxnpwxlgcyggdhgeiLpwwtwfzrelpcciesitnlgoyppipevgavkdirzytxeenygtpntvfphgmyvUykyeUptvpqdciOzrgitgcmgyggavqqiudmqyrgwpgpxoljqcqcemqyyptzgcwkeekciozrvevcywotwnpwgywfppqckcymulxkzrgehgwettkwpytlmpdmsfyppktlrfptqwcxlpgyggpxwyiozxkgevtsplxqfxgpttpyxpNgdtgcicgskcpqngcdmqyhggswdttpwgyxgcqqytccgqfvuxspocplqkdqgpxolfqyrgsyopytwstdhwyipevgemgyIplxvprflrvfrtpxqfvfpzqevgaetengciueicgsvcigyxkpvgomuasutxkzrrzytoirwyulqrwiutrhzvolxkzruUixzyuavkphcrvgpvOlhcxiOzrutiwcpgittpwutspoiolgqywkoitlxkzrftwvtrifig"; 
+	//cle utiliser pour le chiffre : CLE
 	*sauvegardecle = "init_cle";
 	texteDecrypte = DecryptageVigenere( texteCrypte, sauvegardecle); // LES CHAINES NE SONT PAS MODIFIER PAR LA FONCTION 
 	
@@ -135,12 +159,9 @@ int main(int argc, char **argv)
 }	
 
 // LES CHAINES NE SONT PAS MODIFIER => recherche google : comment modifier une chaine de caractere passer en argument d'une fonction
+// CHAINE EN CLAIR:
 //Titulaire du baccalaureat scientifique et actuellement en licence d'informatique, je souhaite mettre à profit le temps libre dont je dispose pendant les vacances dete. 
 //Je suis donc à la recherche dune entreprise pour maccueillir de debut Juin a Septembre.
 //Mon expérience professionnelle et ma formation universitaire mont transmis le sens de lorganisation et de la rigueur ainsi quune grande polyvalence et une motivation à toute épreuve
 //Jespere avoir loccasion de vous présenter mon parcours mon dynamisme et ma bonne humeur lors d’un entretien En attendant un retour de votre part je reste à votre entiere disposition pour de plus amples informations 
 //Je vous prie d’agreer Madame, Monsieur lexpression de ma consideration distinguee.
-
-//Vtxwwekci ff fcngcwewcice wetipemhtuwp iv lgvfinwioprv pr ntggygg o'mpqstxevtuwp, ng dswsekei opxvci c avqqmv wi vpqrd pkmvg ospe ng omuasup tgyhcyx npw xlgcyggd hgei. Lp wwtw fzre l pc ciesitnlg oypp ipevgavkdi rzyt xeenygtpntv fp hgmyv Uyky e Uptvpqdci. Ozr gitgcmgygg avqqiudmqyrgwpg px ol jqcqcemqy yptzgcwkeekci ozrv evcywotw np wgyw fp pqckcymulxkzr ge hg we ttkwpyt lmpdm sfypp ktlrfp tqwcxlpgygg px wyi ozxkgevtsp l xqfxg pttpyxp Ngdtgci cgskc pqngcdmqy hg gswd ttpwgyxgc qqy tccgqfvu xsp ocplqkdqg px ol fqyrg syopyt wstd h’wy ipevgemgy Ip lxvprflrv fr tpxqfv fp zqevg aete ng ciuei c gsvci gyxkpvg omuasutxkzr rzyt oi rwyu lqrwiu trhzvolxkzru Ui xzyu avkp h’crvgpv Olhcxi, Ozrutiwc pgittpwutsp oi ol gqywkoitlxkzr ftwvtrifig.
-
-//dzrlzytniueypxiudeiphgeiuetqfvpzxtperapknevtspbykltqfvdfxfphgnvaaxgcpgdqgdwcriunlkqjtpvcgiegmiprgcihzreemqyrg.wiopwulkgoskeivcinzriljkyhgaswgskcjctvgfrglxvluwpttzfcmmntwvpgqcvgnxg
