@@ -135,5 +135,12 @@ int main(int argc, char **argv)
 }	
 
 // LES CHAINES NE SONT PAS MODIFIER => recherche google : comment modifier une chaine de caractere passer en argument d'une fonction
-//bonjourcestunmessagedetestpournotreapplicationquiapourbutdedecrypterlesmessageschiffreravecvigenerefonctionne.lemessagedoitetrelongafindepouvoirfaireuneattaqueprobabilistecorrecte
+//Titulaire du baccalaureat scientifique et actuellement en licence d'informatique, je souhaite mettre à profit le temps libre dont je dispose pendant les vacances dete. 
+//Je suis donc à la recherche dune entreprise pour maccueillir de debut Juin a Septembre.
+//Mon expérience professionnelle et ma formation universitaire mont transmis le sens de lorganisation et de la rigueur ainsi quune grande polyvalence et une motivation à toute épreuve
+//Jespere avoir loccasion de vous présenter mon parcours mon dynamisme et ma bonne humeur lors d’un entretien En attendant un retour de votre part je reste à votre entiere disposition pour de plus amples informations 
+//Je vous prie d’agreer Madame, Monsieur lexpression de ma consideration distinguee.
+
+//Vtxwwekci ff fcngcwewcice wetipemhtuwp iv lgvfinwioprv pr ntggygg o'mpqstxevtuwp, ng dswsekei opxvci c avqqmv wi vpqrd pkmvg ospe ng omuasup tgyhcyx npw xlgcyggd hgei. Lp wwtw fzre l pc ciesitnlg oypp ipevgavkdi rzyt xeenygtpntv fp hgmyv Uyky e Uptvpqdci. Ozr gitgcmgygg avqqiudmqyrgwpg px ol jqcqcemqy yptzgcwkeekci ozrv evcywotw np wgyw fp pqckcymulxkzr ge hg we ttkwpyt lmpdm sfypp ktlrfp tqwcxlpgygg px wyi ozxkgevtsp l xqfxg pttpyxp Ngdtgci cgskc pqngcdmqy hg gswd ttpwgyxgc qqy tccgqfvu xsp ocplqkdqg px ol fqyrg syopyt wstd h’wy ipevgemgy Ip lxvprflrv fr tpxqfv fp zqevg aete ng ciuei c gsvci gyxkpvg omuasutxkzr rzyt oi rwyu lqrwiu trhzvolxkzru Ui xzyu avkp h’crvgpv Olhcxi, Ozrutiwc pgittpwutsp oi ol gqywkoitlxkzr ftwvtrifig.
+
 //dzrlzytniueypxiudeiphgeiuetqfvpzxtperapknevtspbykltqfvdfxfphgnvaaxgcpgdqgdwcriunlkqjtpvcgiegmiprgcihzreemqyrg.wiopwulkgoskeivcinzriljkyhgaswgskcjctvgfrglxvluwpttzfcmmntwvpgqcvgnxg
