@@ -135,5 +135,5 @@ int main(int argc, char **argv)
 }	
 
 // LES CHAINES NE SONT PAS MODIFIER => recherche google : comment modifier une chaine de caractere passer en argument d'une fonction
-
-
+//bonjourcestunmessagedetestpournotreapplicationquiapourbutdedecrypterlesmessageschiffreravecvigenerefonctionne.lemessagedoitetrelongafindepouvoirfaireuneattaqueprobabilistecorrecte
+//dzrlzytniueypxiudeiphgeiuetqfvpzxtperapknevtspbykltqfvdfxfphgnvaaxgcpgdqgdwcriunlkqjtpvcgiegmiprgcihzreemqyrg.wiopwulkgoskeivcinzriljkyhgaswgskcjctvgfrglxvluwpttzfcmmntwvpgqcvgnxg
