@@ -1,1 +1,6 @@
-gcc InterfaceGraphique.c $(pkg-config --libs --cflags gtk+-2.0) 
+pour compiler:
+      make all 
+pour supprimer les .o etc .. 
+      make clean
+pour compiler, executer et supprimer :
+      make run 
