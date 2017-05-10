@@ -1,5 +1,8 @@
 #include "Fonctions.h"
 
+langue=0;
+choix=0;
+
 void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[])
 {
     int i,j = 0, lg;
@@ -7,7 +10,7 @@ void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[])
     
     for(i=0; i<lg; i++)
     {	
-        if(chaine[i] != ' ' && chaine[i] != '\t' && chaine[i] != '\'') // Si c'ets pas un des ces caractere
+        if(chaine[i] != ' ' && chaine[i] != '\t' && chaine[i] != '\'' && chaine[i] != '\n') // Si c'ets pas un des ces caractere
         {
             copy[j] = chaine[i];
             
@@ -71,8 +74,7 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
 	 
 }
 
-void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin)
-{	//TailleMax=1000; //La cest a la baise mais vos mieux faire une variable dynamique
+void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin){	
 	
 	gchar str[TailleMax];
 	FILE *charger = fopen(chemin,"r");
@@ -81,6 +83,7 @@ void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin)
       perror("Error opening file");
   
    }
+   
    
    fgets(str, TailleMax, charger);
    strcpy(TexteClaire,str);
@@ -102,9 +105,9 @@ RESSOURCESLANGUE ChargerRessources(){
 	FILE *charger;
 	
 	if(langue == 0)
-		charger = fopen("RFrancais.txt","r");
+		charger = fopen("RessourceFrancais.txt","r");
 	if(langue == 1)
-		charger = fopen("RAnglais.txt","r");
+		charger = fopen("RessourceAnglais.txt","r");
 		
 	if(charger == NULL) 
    {
