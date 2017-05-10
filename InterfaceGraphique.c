@@ -1,54 +1,8 @@
-#define hauteur 500
-#define largeur 500
-#include <stdlib.h>
-#include <gtk/gtk.h>
+#include "InterfaceGraphique.h"
 
-GtkWidget *Fenetre;
-int langue=0;
-int choix=0;
+langue=0;
+choix=0;
 
-void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte);
-gchar* ConvertisseurChar(char T[],int TailleTexte);
-void MenuPrincipal(GtkWidget *Fenetre);
-void MenuCryptage(GtkWidget *Fenetre);
-void MenuDecryptage(GtkWidget *Fenetre);
-void MenuCryptageSubstitution(GtkWidget *Fenetre);
-void MenuCryptageVigenere(GtkWidget *Fenetre);
-void MenuDecryptageSubstitution(GtkWidget *Fenetre);
-void MenuDecryptageVigenere(GtkWidget *Fenetre);
-void MenuAnalyseFrequentielle(GtkWidget *Fenetre);
-void MenuResultatSubstitution(GtkWidget *Fenetre, gchar* Text_crypt);
-void ViderContenaire(GtkContainer * container);
-void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle);
-void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gchar* cle);
-void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Text_crypt , gchar* cle);
-void MenuResultatAnalyse(GtkWidget *Fenetre,gchar *analyse);
-void BoiteDialogueVigenere(GtkWidget *Fenetre);
-
-gchar* CryptageSubstitution(gchar* TexteClair)
-{
-    return TexteClair;
-}
-
-gchar* DecryptageSubstitution(gchar* TexteClair)
-{
-    return TexteClair;
-}
-
-gchar* CryptageVigenere(gchar* TexteClair, gchar* Cle)
-{
-    return TexteClair;
-}
-
-gchar* DecryptageVigenere(gchar* TexteClair)
-{
-    return TexteClair;
-}
-
-gchar* AnalyseFrequentielle(gchar* Text)//modifier pour structure analyse
-{
-	return Text;
-}
 
 void MenuResultatDecryptagePartiel(GtkWidget *Fenetre)
 {
@@ -208,11 +162,6 @@ void Enregistrer (GtkWidget *p_widget, GtkWidget *text )
   (void)p_widget;
 }
 
-gchar* LireFichier(const gchar* chemin)
-{
-	return chemin;
-}
-
 void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
 {
     const gchar* chemin;
@@ -222,7 +171,7 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
     dialog = gtk_message_dialog_new(GTK_WINDOW(file_selection),GTK_DIALOG_MODAL,
     GTK_MESSAGE_INFO,GTK_BUTTONS_OK,"Vous avez choisi :\n%s", chemin);
      //ce chemin doit etre utiliser pour remplir une chaine/tableau ensuite on supprime la "dialog"
-    contenu = LireFichier(chemin);
+    LireFichier(contenu,TAILLEMAX,chemin);
     
    switch (choix)
 	{
@@ -1121,23 +1070,6 @@ void MenuPrincipal(GtkWidget *Fenetre)
     
     gtk_widget_show_all(Fenetre);
 }
- 
-
- 
-int main(int argc, char **argv)
-{
-    gtk_init(&argc, &argv);
-    Fenetre = gtk_window_new(GTK_WINDOW_TOPLEVEL); 
-    gtk_window_set_title(GTK_WINDOW(Fenetre), "DecryptUs");
-    gtk_window_set_default_size(GTK_WINDOW(Fenetre), largeur, hauteur);
-    g_signal_connect(G_OBJECT(Fenetre), "destroy", G_CALLBACK(gtk_main_quit), NULL);
-    
-    MenuPrincipal(Fenetre);
- 
-    gtk_main();
-    return EXIT_SUCCESS;
-}
-
 
 
 

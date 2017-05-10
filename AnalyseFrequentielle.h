@@ -5,4 +5,4 @@
 
 #endif
 
-gchar* CryptageSubstitution(gchar* TexteClair);
+gchar* AnalyseFrequentielle(gchar* Text);

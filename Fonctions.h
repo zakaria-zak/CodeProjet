@@ -1,20 +1,43 @@
 #ifndef DEF_DEF
 #define DEF_DEF
-
-#include "definitions.h"
+	
 
 #endif
 
-int getExperience();
+#include <stdio.h>
+#include <stdlib.h>
+#include <gtk/gtk.h>
+#include <string.h>
 
-int calculPoids(int couleur, int temps, int experience);
+#define TAILLEMAX 1000
+#define hauteur 500
+#define largeur 500
 
-void initialise_tableau_antecedant(antecedant a[]);
+int langue;
+int choix;
 
-void initialise_tableau_parcour(parcour p[],int depart);
+GtkWidget *Fenetre;
 
-int recherche_pere(parcour p[]);
+typedef struct phoneme{
+	int frequence;
+	gchar* nom;
+}PHONEME;
 
-int recherche_fils(int pere,int f[]);
+typedef struct analyse{ 
+	int nb;  //taille des tableaux
+	float occ[25];
+	PHONEME di[25]; 
+	PHONEME tr[25];
+	gchar* pgor;
+}ANALYSE;
 
-void dijstra(int depart,int arrivee,antecedant a[],parcour p[]);
+typedef struct ressourceslangue{
+	float occ[25];
+	PHONEME di[25];
+	PHONEME tr[25];
+}RESSOURCESLANGUE;
+
+
+void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[]);
+void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin);
+void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte);

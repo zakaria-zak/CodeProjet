@@ -1,35 +1,38 @@
-all: dcrypt
+LIBS=`pkg-config --libs gtk+-2.0`
 
-run:	dcrypt
-		./dcrypt
+run: all clean
+	./dcrypt
 		
-dcrypt:		main.o InterfaceGraphique.o Fonctions.o AnalyseFrequentielle.o CryptageSubstitution.o CryptageVigenere.o DecryptageSubstitution.o DecryptageVigenere.o
-			gcc -g -Wall main.o InterfaceGraphique.o Fonctions.o AnalyseFrequentielle.o CryptageSubstitution.o CryptageVigenere.o DecryptageSubstitution.o DecryptageVigenere.o -o dcrypt
+all: main.o InterfaceGraphique.o Fonctions.o  CryptageVigenere.o CryptageSubstitution.o DecryptageVigenere.o DecryptageSubstitution.o AnalyseFrequentielle.o
+	gcc main.o InterfaceGraphique.o Fonctions.o CryptageVigenere.o CryptageSubstitution.o DecryptageVigenere.o DecryptageSubstitution.o AnalyseFrequentielle.o -o dcrypt $(LIBS)
 
-main.o:	main.c InterfaceGraphique.h
-		gcc -c -Wall main.c
+Fonctions.o: Fonctions.c Fonctions.h
+	gcc -c Fonctions.c `pkg-config --cflags gtk+-2.0` -o Fonctions.o
 
-InterfaceGraphique.o:	InterfaceGraphique.c Fonctions.h AnalyseFrequentielle.h CryptageSubstitution.h CryptageVigenere.h DecryptageSubstitution.h DecryptageVigenere.h
-				gcc -c -Wall InterfaceGraphique.c
+CryptageVigenere.o: CryptageVigenere.c Fonctions.o
+	gcc -Wall `pkg-config --cflags gtk+-2.0` -c CryptageVigenere.c
 
-CryptageSubstitution.o:	CryptageSubstitution.c Fonctions.h
-				gcc -c -Wall CryptageSubstitution.c
+DecryptageVigenere.o: DecryptageVigenere.c Fonctions.o AnalyseFrequentielle.o
+	gcc -Wall `pkg-config --cflags gtk+-2.0` -c DecryptageVigenere.c
 
-CryptageVigenere.o:	CryptageVigenere.c Fonctions.h
-				gcc -c -Wall CryptageVigenere.c
+DecryptageSubstitution.o : DecryptageSubstitution.c Fonctions.o
+	gcc -Wall `pkg-config --cflags gtk+-2.0` -c DecryptageSubstitution.c
 
-DecryptageSubstitution.o:	DecryptageSubstitution.c Fonctions.h AnalyseFrequentielle.h
-				gcc -c -Wall DecryptageSubstitution.c
+CryptageSubstitution.o : CryptageSubstitution.c Fonctions.o
+	gcc -Wall `pkg-config --cflags gtk+-2.0` -c CryptageSubstitution.c
 
-DecryptageVigenere.o:	DecryptageVigenere.c Fonctions.h AnalyseFrequentielle.h
-				gcc -c -Wall DecryptageVigenere.c
+AnalyseFrequentielle.o : AnalyseFrequentielle.c Fonctions.o
+	gcc -Wall `pkg-config --cflags gtk+-2.0` -c AnalyseFrequentielle.c
 
-AnalyseFrequentielle.o:	AnalyseFrequentielle.c Fonctions.h
-				gcc -c -Wall AnalyseFrequentielle.c
+InterfaceGraphique.o: InterfaceGraphique.c CryptageVigenere.o CryptageSubstitution.o DecryptageSubstitution.o DecryptageVigenere.o AnalyseFrequentielle.o
+	gcc -Wall `pkg-config --cflags gtk+-2.0` -c InterfaceGraphique.c
 
-Fonctions.o:	Fonctions.c Definitions.h 
-				gcc -c -Wall Fonctions.c
+main.o: main.c InterfaceGraphique.o
+	gcc -c main.c  `pkg-config --cflags gtk+-2.0` -o main.o
 
 clean:
-	rm *.o
-	rm dcrypt
+	rm -f *core
+	rm -f *.o
+	rm -f police.h
+	rm -f *.tar
+	rm -f *.tgz

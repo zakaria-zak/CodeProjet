@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <gtk/gtk.h>
-#include "string.h"
+#include "Fonctions.h"
 
 void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[])
 {
@@ -10,7 +7,7 @@ void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[])
     
     for(i=0; i<lg; i++)
     {	
-        if(chaine[i] != ' ' && chaine[i] != '\t' && chaine[i] != '\'' && chaine[i] != '\"') // Si c'ets pas un des ces caractere
+        if(chaine[i] != ' ' && chaine[i] != '\t' && chaine[i] != '\'') // Si c'ets pas un des ces caractere
         {
             copy[j] = chaine[i];
             
@@ -46,12 +43,20 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
 				T[j] = 'a';
 				j++;
 			}
-			else if(c == -68 || c == -69){
+			else if(c == -68 || c == -69 || c == -71){
 				T[j] = 'u';
 				j++;
 			}
 			else if(c == -81 || c == -82){
 				T[j] = 'i';
+				j++;
+			}
+			else if(c == -76 || c == -74){
+				T[j] = 'o';
+				j++;
+			}
+			else if(c == -89){
+				T[j] = 'c';
 				j++;
 			}
 		}
@@ -66,16 +71,81 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
 	 
 }
 
-int main(){
+void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin)
+{	//TailleMax=1000; //La cest a la baise mais vos mieux faire une variable dynamique
 	
-	gchar* copie = "SaLUUUt j'apelle  L'ANalyse de Tkt pas c'est la folie Ras   eëêéèaäâàuüûiïî";
-	gchar Newtab[strlen(copie)];
-	int taille;
-	ConvertisseurTableau(Newtab,&taille,copie);
-	
-	printf("\n %s \n", Newtab);
-	
-		
-	
-	return 0;
+	gchar str[TailleMax];
+	FILE *charger = fopen(chemin,"r");
+	if(charger == NULL) 
+   {
+      perror("Error opening file");
+  
+   }
+   
+   fgets(str, TailleMax, charger);
+   strcpy(TexteClaire,str);
+ 
+   while(fgets(str, TailleMax, charger) != NULL){
+	   strcat(TexteClaire,str);
+  }
+  
 }
+
+
+RESSOURCESLANGUE ChargerRessources(){
+	
+
+	int i, taille_max=1000; //La cest a la baise mais vos mieux faire une variable dynamique
+	RESSOURCESLANGUE res;
+	gchar str[taille_max];
+	
+	FILE *charger;
+	
+	if(langue == 0)
+		charger = fopen("RFrancais.txt","r");
+	if(langue == 1)
+		charger = fopen("RAnglais.txt","r");
+		
+	if(charger == NULL) 
+   {
+      perror("Error opening file");
+  
+   }
+	
+	//de A à Z
+	for(i=0;i<26;i++){
+		fgets(str, taille_max, charger);
+		res.occ[i] = atof(str);
+	}
+
+	//Les Digrammes
+	for(i=0;i<25;i++){
+		fgets(str, taille_max, charger);
+		strncpy(res.di[i].nom,str,2);		
+		res.di[i].frequence = atoi(strpbrk(str,"0123456789"));
+	}
+	
+	//Les Trigrammes
+	for(i=0;i<20;i++){
+		fgets(str, taille_max, charger);
+		strncpy(res.tr[i].nom,str,3);
+		res.tr[i].frequence = atoi(strpbrk(str,"0123456789"));
+	}
+	
+	fclose(charger);
+	return res;
+}
+
+//~ int main(){
+	
+	//~ RESSOURCESLANGUE res = ChargerRessources();
+	//~ int i;
+	//~ for (i = 0; i < 20; i++)
+	//~ {
+		//~ printf("\n lettre numero %d = %f\n" ,i ,res.occ[i]);
+		//~ printf("\n %d digramme %s = %d\n" ,i ,res.di[i].nom ,res.di[i].frequence);
+		//~ printf("\n %d trigramme %s = %d\n" ,i ,res.tr[i].nom ,res.tr[i].frequence);
+	//~ }
+	
+	//~ return 0;
+//~ }

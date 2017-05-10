@@ -1,19 +1,15 @@
 #ifndef DEF_DEF
 #define DEF_DEF
 
-#include "definitions.h"
+#include "Fonctions.h"
+#include "AnalyseFrequentielle.h"
 
 #endif
 
-void initialise(Arc G[V][V]);
-char* nomSommet(int indiceSommet);
-int indiceSommet(char nomSommet[]);
-char* nomArc(int indiceArc);
-void lectureGraphe(char* nomFichier, Arc G[V][V]);
-void afficheGraphe(Arc G[V][V]);
-
-
-gchar* DecryptageVigenere(gchar* TexteCrypte);
+gchar* DecryptageVigenere(gchar* TexteClair);
+gchar* DecryptageVig(gchar* texteCrypte, gchar* safecle);
 int Kasiski(ANALYSE freq, gchar* TexteCrypte);
-int* indiceMutuelle(int kasiski, ANALYSE freq, ANALYSE ressource); //MODIF : int* car renvoie un tableau d'entier. utiliser tabdynamique(malloc)
+void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar** safecle); //MODIF : int* car renvoie un tableau d'entier. utiliser tabdynamique(malloc)
 gchar* decrypteur( int T[], int kasiski, gchar* TexteCrypte);
+ANALYSE AnalyseFreq(gchar* TextClair);
+RESSOURCESLANGUE TabRessource();

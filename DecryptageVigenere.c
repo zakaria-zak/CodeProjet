@@ -1,22 +1,5 @@
-#include <stdlib.h>
-#include <gtk/gtk.h>
+#include "DecryptageVigenere.h"
 
-typedef struct phoneme{
-	int frequence;
-	gchar* nom;
-}PHONEME;
-typedef struct analyse{ //fréquence
-	int nb; 
-	float occ[25];
-	PHONEME di[25]; 
-	PHONEME tr[25];
-	gchar* pgor;
-}ANALYSE;
-typedef struct ressourceslangue{ //probabilité
-	float occ[25];
-	PHONEME di[25];
-	PHONEME tr[25];
-}RESSOURCESLANGUE;
 int longueurChaine(const char* chaine)
 {
     int nombreDeCaracteres = 0;
@@ -96,7 +79,7 @@ RESSOURCESLANGUE TabRessource(){
 		
 	return tabre;
 }
-ANALYSE AnalyseFrequentielle(gchar* TextClair){
+ANALYSE AnalyseFreq(gchar* TextClair){
 	int i;
 	ANALYSE freq;
 	freq.occ[0] = 1.14;		/*a*/		freq.occ[14] = 3.57;	/*o*/
@@ -117,46 +100,52 @@ ANALYSE AnalyseFrequentielle(gchar* TextClair){
 	freq.pgor = "abio"; //definiton du pgor
 	freq.nb = 616;		// nombre de caractères dans le texte crypté
 	return freq;
-};
-gchar* DecryptageVigenere(gchar* texteCrypte, gchar **safecle){
-	RESSOURCESLANGUE don;
-	ANALYSE req;
-	int i,kasiski;
-	
-	don = TabRessource();  // remplie la structure avec les proba de la langue choisi.
-	req = AnalyseFrequentielle(texteCrypte); //remplie la structure avec les fréquences du texte
-	kasiski = Kasiski(req, texteCrypte); //recupere le PGOR (ou tri) et le texte clair, retourne taille cle
-	int cle[kasiski];
-    texteCrypte = "MAJ";
-	*safecle = "sauvegarde";
-	indiceMutuelle(cle, 3, req, don, safecle);  // LA CHAINE SAFECLE NEST PAS MODIFIER PAR LA FONCTION
-	
-	texteCrypte = decrypteur(cle, kasiski, texteCrypte);
-		
-	for (i = 0; i < 3; i++){
-		printf(" \n valeur cle[%d] = %d \n", i, cle[i]); // printf(" \n cle[0] = %d \n", cle[0]);
-	}
-//printf(" \n  premiere valeur des proba : %f \n", don.occ[0]);
-//printf(" \n  premiere valeur des fréquences : %f \n", req.occ[0]);
-//printf(" \n  taille de la clef : %d \n", kasiski);
-//printf(" \n  pgor trouver : %s \n", req.pgor);
-
-	return texteCrypte;
 }
 
-int main(int argc, char **argv)
+gchar* DecryptageVigenere(gchar* TexteClair)
 {
-	gchar *texteCrypte, **sauvegardecle, *texteDecrypte;
-	texteCrypte = "VtxwwekcifffcngcwewcicewetipemhtuwpivlgvfinwioprvprntggyggompqstxevtuwpngdswsekeiopxvcicavqqmvwivpqrdpkmvgospengomuasuptgyhcyxnpwxlgcyggdhgeiLpwwtwfzrelpcciesitnlgoyppipevgavkdirzytxeenygtpntvfphgmyvUykyeUptvpqdciOzrgitgcmgyggavqqiudmqyrgwpgpxoljqcqcemqyyptzgcwkeekciozrvevcywotwnpwgywfppqckcymulxkzrgehgwettkwpytlmpdmsfyppktlrfptqwcxlpgyggpxwyiozxkgevtsplxqfxgpttpyxpNgdtgcicgskcpqngcdmqyhggswdttpwgyxgcqqytccgqfvuxspocplqkdqgpxolfqyrgsyopytwstdhwyipevgemgyIplxvprflrvfrtpxqfvfpzqevgaetengciueicgsvcigyxkpvgomuasutxkzrrzytoirwyulqrwiutrhzvolxkzruUixzyuavkphcrvgpvOlhcxiOzrutiwcpgittpwutspoiolgqywkoitlxkzrftwvtrifig"; 
-	//cle utiliser pour le chiffre : CLE
-	*sauvegardecle = "init_cle";
-	texteDecrypte = DecryptageVigenere( texteCrypte, sauvegardecle); // LES CHAINES NE SONT PAS MODIFIER PAR LA FONCTION 
+    return TexteClair;
+}
+
+//~ gchar* DecryptageVigenere(gchar* texteCrypte, gchar **safecle){
+	//~ RESSOURCESLANGUE don;
+	//~ ANALYSE req;
+	//~ int i,kasiski;
 	
-	printf(" \n  texteDecrypte trouver : %s \n", texteDecrypte); 
-	printf(" \n  cle sauvegarde 4 : %s \n", *sauvegardecle); 
+	//~ don = TabRessource();  // remplie la structure avec les proba de la langue choisi.
+	//~ req = AnalyseFreq(texteCrypte); //remplie la structure avec les fréquences du texte
+	//~ kasiski = Kasiski(req, texteCrypte); //recupere le PGOR (ou tri) et le texte clair, retourne taille cle
+	//~ int cle[kasiski];
+    //~ texteCrypte = "MAJ";
+	//~ *safecle = "sauvegarde";
+	//~ indiceMutuelle(cle, 3, req, don, safecle);  // LA CHAINE SAFECLE NEST PAS MODIFIER PAR LA FONCTION
 	
-	return 0; 
-}	
+	//~ texteCrypte = decrypteur(cle, kasiski, texteCrypte);
+		
+	//~ for (i = 0; i < 3; i++){
+		//~ printf(" \n valeur cle[%d] = %d \n", i, cle[i]); // printf(" \n cle[0] = %d \n", cle[0]);
+	//~ }
+//~ //printf(" \n  premiere valeur des proba : %f \n", don.occ[0]);
+//~ //printf(" \n  premiere valeur des fréquences : %f \n", req.occ[0]);
+//~ //printf(" \n  taille de la clef : %d \n", kasiski);
+//~ //printf(" \n  pgor trouver : %s \n", req.pgor);
+
+	//~ return texteCrypte;
+//~ }
+
+//~ int main(int argc, char **argv)
+//~ {
+	//~ gchar *texteCrypte, **sauvegardecle, *texteDecrypte;
+	//~ texteCrypte = "VtxwwekcifffcngcwewcicewetipemhtuwpivlgvfinwioprvprntggyggompqstxevtuwpngdswsekeiopxvcicavqqmvwivpqrdpkmvgospengomuasuptgyhcyxnpwxlgcyggdhgeiLpwwtwfzrelpcciesitnlgoyppipevgavkdirzytxeenygtpntvfphgmyvUykyeUptvpqdciOzrgitgcmgyggavqqiudmqyrgwpgpxoljqcqcemqyyptzgcwkeekciozrvevcywotwnpwgywfppqckcymulxkzrgehgwettkwpytlmpdmsfyppktlrfptqwcxlpgyggpxwyiozxkgevtsplxqfxgpttpyxpNgdtgcicgskcpqngcdmqyhggswdttpwgyxgcqqytccgqfvuxspocplqkdqgpxolfqyrgsyopytwstdhwyipevgemgyIplxvprflrvfrtpxqfvfpzqevgaetengciueicgsvcigyxkpvgomuasutxkzrrzytoirwyulqrwiutrhzvolxkzruUixzyuavkphcrvgpvOlhcxiOzrutiwcpgittpwutspoiolgqywkoitlxkzrftwvtrifig"; 
+	//~ //cle utiliser pour le chiffre : CLE
+	//~ *sauvegardecle = "init_cle";
+	//~ texteDecrypte = DecryptageVigenere( texteCrypte, sauvegardecle); // LES CHAINES NE SONT PAS MODIFIER PAR LA FONCTION 
+	
+	//~ printf(" \n  texteDecrypte trouver : %s \n", texteDecrypte); 
+	//~ printf(" \n  cle sauvegarde 4 : %s \n", *sauvegardecle); 
+	
+	//~ return 0; 
+//~ }	
 
 // LES CHAINES NE SONT PAS MODIFIER => recherche google : comment modifier une chaine de caractere passer en argument d'une fonction
 // CHAINE EN CLAIR:

@@ -1,32 +1,24 @@
 #ifndef DEF_DEF
 #define DEF_DEF
 
-#include "definitions.h"
-#include <stdlib.h>
-#include <gtk/gtk.h>
-#define hauteur 500
-#define largeur 500
-GtkWidget *Fenetre;
-int langue=0;
+#include "Fonctions.h"
+#include "CryptageVigenere.h"
+#include "CryptageSubstitution.h"
+#include "DecryptageSubstitution.h"
+#include "DecryptageVigenere.h"
+
 
 #endif
 
 //dans un autre fichier
-void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte);
-gchar* ConvertisseurChar(char T[],int TailleTexte);
-gchar* CryptageSubstitution(gchar* TexteClair);
-gchar* DecryptageSubstitution(gchar* TexteClair);
-gchar* CryptageVigenere(gchar* TexteClair, gchar* Cle);
-gchar* DecryptageVigenere(gchar* TexteClair);
-gchar* LireFichier(const gchar* chemin);
 void Enregistrer (GtkWidget *p_widget, GtkWidget *text );
 void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection);
-void ChoisirFichier()
+void ChoisirFichier();
 //interface
 void ViderContenaire(GtkContainer * container);
 void MenuResultatSubstitution(GtkWidget *Fenetre, gchar* Text_crypt);
 void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle);
-void MenuResultatAnalyse(GtkWidget *Fenetre);
+void MenuResultatAnalyse(GtkWidget *Fenetre, gchar* Texte);
 void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Text_crypt , gchar* cle);
 void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gchar* cle);
 void BoiteDialogueSubstitution(GtkWidget *Fenetre);
