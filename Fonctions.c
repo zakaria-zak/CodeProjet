@@ -1,8 +1,5 @@
 #include "Fonctions.h"
 
-langue=0;
-choix=0;
-
 void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[])
 {
     int i,j = 0, lg;
@@ -10,7 +7,7 @@ void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[])
     
     for(i=0; i<lg; i++)
     {	
-        if(chaine[i] != ' ' && chaine[i] != '\t' && chaine[i] != '\'' && chaine[i] != '\n') // Si c'ets pas un des ces caractere
+        if(chaine[i] != ' ' && chaine[i] != '\t' && chaine[i] != '\'') // Si c'ets pas un des ces caractere
         {
             copy[j] = chaine[i];
             
@@ -18,6 +15,23 @@ void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[])
 			{
 				copy[j] = chaine[i] + 32;
 			}
+			
+            j++;
+        }
+    }
+    copy[j] = '\0';
+}
+
+void RetirerToutCarSpec(gchar chaine[], gchar copy[])
+{
+    int i,j = 0, lg;
+    lg = strlen(chaine);
+    
+    for(i=0; i<lg; i++)
+    {	
+        if(chaine[i]>=48 && chaine[i]<=57 || chaine[i]>=97 && chaine[i]<=122) 
+        {
+            copy[j] = chaine[i];
 			
             j++;
         }
@@ -74,7 +88,10 @@ void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte){
 	 
 }
 
-void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin){	
+void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin)
+{	//TailleMax=1000; //La cest a la baise mais vos mieux faire une variable dynamique
+	
+	printf("\n%s\n",chemin);
 	
 	gchar str[TailleMax];
 	FILE *charger = fopen(chemin,"r");
@@ -83,7 +100,6 @@ void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin){
       perror("Error opening file");
   
    }
-   
    
    fgets(str, TailleMax, charger);
    strcpy(TexteClaire,str);
@@ -98,16 +114,16 @@ void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin){
 RESSOURCESLANGUE ChargerRessources(){
 	
 
-	int i, taille_max=1000; //La cest a la baise mais vos mieux faire une variable dynamique
+	int i, taille_max=TAILLEMAX; //La cest a la baise mais vos mieux faire une variable dynamique
 	RESSOURCESLANGUE res;
 	gchar str[taille_max];
 	
 	FILE *charger;
 	
 	if(langue == 0)
-		charger = fopen("RessourceFrancais.txt","r");
+		charger = fopen("RFrancais.txt","r");
 	if(langue == 1)
-		charger = fopen("RessourceAnglais.txt","r");
+		charger = fopen("RAnglais.txt","r");
 		
 	if(charger == NULL) 
    {
@@ -138,17 +154,3 @@ RESSOURCESLANGUE ChargerRessources(){
 	fclose(charger);
 	return res;
 }
-
-//~ int main(){
-	
-	//~ RESSOURCESLANGUE res = ChargerRessources();
-	//~ int i;
-	//~ for (i = 0; i < 20; i++)
-	//~ {
-		//~ printf("\n lettre numero %d = %f\n" ,i ,res.occ[i]);
-		//~ printf("\n %d digramme %s = %d\n" ,i ,res.di[i].nom ,res.di[i].frequence);
-		//~ printf("\n %d trigramme %s = %d\n" ,i ,res.tr[i].nom ,res.tr[i].frequence);
-	//~ }
-	
-	//~ return 0;
-//~ }
