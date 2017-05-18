@@ -1,25 +1,7 @@
 #include "DecryptageVigenere.h"
 
-#include <stdlib.h>
-#include <gtk/gtk.h>
 #include <tgmath.h>
 
-typedef struct phoneme{
-	int frequence;
-	gchar* nom;
-}PHONEME;
-typedef struct analyse{ //fréquence
-	int nb; 
-	float occ[25];
-	PHONEME di[25]; 
-	PHONEME tr[25];
-	gchar* pgor;
-}ANALYSE;
-typedef struct ressourceslangue{ //probabilité
-	float occ[25];
-	PHONEME di[25];
-	PHONEME tr[25];
-}RESSOURCESLANGUE;
 int longueurChaine(const char* chaine)
 {
     int nombreDeCaracteres = 0;
