@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <gtk/gtk.h>
 #include <string.h>
+#include <time.h>
+#include <tgmath.h>
 
 #define TAILLEMAX 1000
 #define hauteur 500
@@ -20,7 +22,7 @@ GtkWidget *Fenetre;
 
 typedef struct phoneme{
 	int frequence;
-	gchar* nom;
+	gchar nom[5];
 }PHONEME;
 
 typedef struct analyse{ 
@@ -38,6 +40,7 @@ typedef struct ressourceslangue{
 }RESSOURCESLANGUE;
 
 
+void RetirerToutCarSpec(gchar chaine[], gchar copy[]);
 void RetirerCarSpecMajuscule(gchar chaine[], gchar copy[]);
 void LireFichier(gchar TexteClaire[] ,int TailleMax ,const gchar* chemin);
 void ConvertisseurTableau(gchar T[],int *TailleTexte,gchar* Texte);
