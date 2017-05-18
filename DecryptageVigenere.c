@@ -124,7 +124,7 @@ ANALYSE AnalyseFrequentielle(gchar* TextClair){
 	freq.nb = 616;		// nombre de caractères dans le texte crypté
 	return freq;
 };
-gchar* DecryptageVigenere(gchar* texteCrypte, gchar savecle[]){
+void DecryptageVigenere(gchar* resultat, gchar* texteCrypte, gchar savecle[]){
 	RESSOURCESLANGUE don;
 	ANALYSE req;
 	int i,kasiski;
@@ -144,22 +144,8 @@ gchar* DecryptageVigenere(gchar* texteCrypte, gchar savecle[]){
 //printf(" \n  taille de la clef : %d \n", kasiski);
 //printf(" \n  pgor trouver : %s \n", req.pgor);
 
-	return texteCrypte;
+strcpy(resultat,texteCrypte);
 }
-
-int main(int argc, char **argv)
-{
-	gchar *texteCrypte, *texteDecrypte;
-	texteCrypte = "VtxwwekcifffcngcwewcicewetipemhtuwpivlgvfinwioprvprntggyggompqstxevtuwpngdswsekeiopxvcicavqqmvwivpqrdpkmvgospengomuasuptgyhcyxnpwxlgcyggdhgeiLpwwtwfzrelpcciesitnlgoyppipevgavkdirzytxeenygtpntvfphgmyvUykyeUptvpqdciOzrgitgcmgyggavqqiudmqyrgwpgpxoljqcqcemqyyptzgcwkeekciozrvevcywotwnpwgywfppqckcymulxkzrgehgwettkwpytlmpdmsfyppktlrfptqwcxlpgyggpxwyiozxkgevtsplxqfxgpttpyxpNgdtgcicgskcpqngcdmqyhggswdttpwgyxgcqqytccgqfvuxspocplqkdqgpxolfqyrgsyopytwstdhwyipevgemgyIplxvprflrvfrtpxqfvfpzqevgaetengciueicgsvcigyxkpvgomuasutxkzrrzytoirwyulqrwiutrhzvolxkzruUixzyuavkphcrvgpvOlhcxiOzrutiwcpgittpwutspoiolgqywkoitlxkzrftwvtrifig"; 
-	//cle utiliser pour le chiffre : CLE
-	gchar sauvegardecle[10];
-	texteDecrypte = DecryptageVigenere( texteCrypte, sauvegardecle); // LES CHAINES NE SONT PAS MODIFIER PAR LA FONCTION 
-	
-	printf(" \n  texteDecrypte trouver : %s \n", texteDecrypte); 
-	printf(" \n  cle sauvegarde 4 : %s \n", sauvegardecle); 
-	
-	return 0; 
-}	
 
 
 // CHAINE EN CLAIR:

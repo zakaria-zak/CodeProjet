@@ -5,4 +5,3 @@
 
 #endif
 
-gchar* AnalyseFrequentielle(gchar* Text);

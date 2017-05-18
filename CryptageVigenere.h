@@ -5,4 +5,4 @@
 
 #endif
 
-gchar* CryptageVigenere(gchar* TexteClair, gchar* Cle);
+void CryptageVigenere(gchar* resultat, gchar* TexteClair, gchar* Cle);

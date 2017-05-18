@@ -6,10 +6,14 @@
 
 #endif
 
-gchar* DecryptageVigenere(gchar* TexteClair);
-gchar* DecryptageVig(gchar* texteCrypte, gchar* safecle);
-int Kasiski(ANALYSE freq, gchar* TexteCrypte);
-void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar** safecle); //MODIF : int* car renvoie un tableau d'entier. utiliser tabdynamique(malloc)
-gchar* decrypteur( int T[], int kasiski, gchar* TexteCrypte);
-ANALYSE AnalyseFreq(gchar* TextClair);
+int longueurChaine(const char* chaine);
+
+int Kasiski(ANALYSE freq, gchar* texteCrypte);
+
+void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar safecle[]);
+
 RESSOURCESLANGUE TabRessource();
+
+ANALYSE AnalyseFrequentielle(gchar* TextClair);
+
+void DecryptageVigenere(gchar* resultat, gchar* texteCrypte, gchar savecle[]);

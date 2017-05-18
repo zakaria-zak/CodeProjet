@@ -1,6 +1,6 @@
 #include "DecryptageSubstitution.h"
 
-gchar* DecryptageSubstitution(gchar* TexteClair)
+void DecryptageSubstitution(gchar* TexteClair,gchar* text,gchar* cle)
 {
     return TexteClair; 
 }

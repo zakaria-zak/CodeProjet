@@ -161,6 +161,7 @@ void Enregistrer (GtkWidget *p_widget, GtkWidget *text )
 
 void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
 {
+    ANALYSE a;
     const gchar* chemin;
     gchar *text_crypte,*text_clair;
     gchar contenu[TAILLEMAX];
@@ -174,26 +175,26 @@ void RecupererChemin(GtkWidget *bouton, GtkWidget *file_selection)
    switch (choix)
 	{
 	case 1:
-		text_crypte=CryptageSubstitution(contenu);
+		CryptageSubstitution(text_crypte,contenu);
   		MenuResultatSubstitution(Fenetre,text_crypte);
   		break;
 	case 2:
 	
-		text_crypte=CryptageVigenere(contenu,contenu);
+		CryptageVigenere(text_crypte,contenu,contenu);
 		MenuResultatVigenere(Fenetre,text_crypte,text_crypte);
 		
   		break;
 	case 3:
-  		text_clair=DecryptageSubstitution(contenu);
+  		DecryptageSubstitution(text_crypte,contenu,contenu);
   		MenuResultatDecryptageSubstitution(Fenetre,text_clair,text_clair);
   		break;
 	case 4:
-  		text_clair=DecryptageVigenere(contenu);
+  		DecryptageVigenere(text_crypte,contenu,contenu);
   		MenuResultatDecryptageVigenere(Fenetre,text_clair,text_clair);
   		break;
   	case 5:
-  		text_clair=AnalyseFrequentielle(contenu);
-  		MenuResultatAnalyse(Fenetre,text_clair);
+  		a=AnalyseFrequentielle(contenu);
+  		MenuResultatAnalyse(Fenetre,contenu);
   		break;
 
 }
@@ -533,7 +534,7 @@ void BoiteDialogueSubstitution(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_clair = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                Text_crypt = CryptageSubstitution(Text_clair);
+                CryptageSubstitution(Text_crypt,Text_clair);
                 MenuResultatSubstitution(Fenetre, Text_crypt);
                  //on rajoutera plus tard la cle de sub
                 // ici on doit pouvoir sauvegarder le texte dans la variable Nom
@@ -610,7 +611,7 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 	                gtk_text_buffer_get_start_iter(Buffer,&debut);
 	                gtk_text_buffer_get_end_iter(Buffer,&fin);
 	                cle = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-	                Text_crypt = CryptageVigenere(Text_clair, cle);
+	                CryptageVigenere(Text_crypt,Text_clair, cle);
 	                MenuResultatVigenere(Fenetre, Text_crypt, cle);
 	                 //on rajoutera plus tard la cle de sub
 	                // ici on doit pouvoir sauvegarder le texte dans la variable Nom
@@ -628,6 +629,7 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 
 void BoiteDialogueAnalyse(GtkWidget *Fenetre)
 {
+	ANALYSE a;
     GtkWidget *Boite,*Entrer;
     gchar* Text;
     GtkTextBuffer* Buffer;
@@ -649,7 +651,7 @@ void BoiteDialogueAnalyse(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                Text=AnalyseFrequentielle(Text);//changer pour travailler avec analyse
+                a = AnalyseFrequentielle(Text);//changer pour travailler avec analyse
                 MenuResultatAnalyse(Fenetre,Text);
                 break;
             case GTK_RESPONSE_CANCEL:
@@ -698,7 +700,7 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                Text_clair = DecryptageSubstitution(Text_crypt);
+                DecryptageSubstitution(Text_clair,Text_crypt,Text_clair);
                 MenuResultatDecryptageSubstitution(Fenetre, Text_clair , Text_clair);//il faut mettre la cle
                  //on rajoutera plus tard la cle de sub
                 // ici on doit pouvoir sauvegarder le texte dans la variable Nom
@@ -750,7 +752,7 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
                 gtk_text_buffer_get_start_iter(Buffer,&debut);
                 gtk_text_buffer_get_end_iter(Buffer,&fin);
                 Text_crypt = gtk_text_buffer_get_text(Buffer,&debut,&fin,FALSE);
-                Text_clair = DecryptageVigenere(Text_crypt);
+                DecryptageVigenere(Text_clair,Text_crypt,Text_crypt);
                 MenuResultatDecryptageVigenere(Fenetre, Text_clair , Text_clair);//il faut mettre la cle
                  //on rajoutera plus tard la cle de sub
                 // ici on doit pouvoir sauvegarder le texte dans la variable Nom
