@@ -1,7 +1,5 @@
 #include "DecryptageVigenere.h"
 
-#include <tgmath.h>
-
 int longueurChaine(const char* chaine)
 {
     int nombreDeCaracteres = 0;
@@ -16,24 +14,43 @@ int longueurChaine(const char* chaine)
     return nombreDeCaracteres;
 }
 int Kasiski(ANALYSE freq, gchar* texteCrypte){
-	int distance[10];
-	int i,j,kas,taillepgor;
 
-	//		ABIO . strlen => me donne la taille soit 4.
-	//				strcut(4) => je découpe en morceau de 4 et je test si strcut(4) = ABIO
-	//															si oui, jenregistre la position i
-	taillepgor = longueurChaine(freq.pgor);
-	// test = strcut
-	// identique = strcmp(freq.pgor, test);
-	//if(freq.pgor = strcut(texteCrypte,taille))
-	// 
-	//	for(i=0 ; i<freq.nb; i++){
-	//		if(test[taille] = textCrypt[i]){  //si la chaine test correspond a la ième chaine , alors stock le i dans distance[j]
-	//				distance[j] = i;
-	//					j++;}
-	//	}
-	// kas =  PGCD(distance[], j)
-	return 3;
+	int i,j,kas,taillepgor;
+	
+	taillepgor = strlen(freq.pgor);
+	
+	int nbrpgor = 0;
+	int distance[10];
+	
+	for (i = 0; i < strlen(texteCrypte); i++)
+	{
+		for (j = 0; j < taillepgor; j++)
+		{
+			if(freq.pgor[j] == texteCrypte[i]){
+				if(j == taillepgor-1){
+					distance[nbrpgor] = i-(taillepgor-1);
+					nbrpgor++;
+				}
+				i++;
+			}
+			else if(texteCrypte[i] == freq.pgor[0]){
+				j=0;
+				i++;
+			}
+			else break;
+		}
+		
+	}
+	kas = distance[0];
+	j=0;
+	for (i = 1; i < nbrpgor+1; i++)
+	{
+		kas = pgcd(kas,distance[i]);
+		j++;
+	}
+	
+	
+	return kas;
 }
 	
 void indiceMutuelle(int cle[], int kasiski, ANALYSE freq, RESSOURCESLANGUE prob, gchar safecle[])
