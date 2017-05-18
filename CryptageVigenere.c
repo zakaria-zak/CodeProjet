@@ -1,9 +1,9 @@
 #include "CryptageVigenere.h"
 
-void CryptageVigenere(char* resultat,char* texteClair,char* Cle)
+void CryptageVigenere(gchar* resultat,gchar* texteClair,gchar* Cle)
 {
    int i;
-   char a,b,c;
+   gchar a,b,c;
    int length = strlen(Cle);
 		for ( i = 0; i < strlen(texteClair); i++)
 		{
