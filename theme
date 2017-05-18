@@ -1,0 +1,24 @@
+style "window"
+{
+  bg[NORMAL] = { 0.707, 0.707, 0.707 }
+}
+widget_class "GtkWindow" style "window"
+
+style"button"
+{
+GtkButton::default-outside-border={0,0,0,0}
+GtkButton::default-border={0,0,0,0}
+GtkButton::inner-border={1,1,1,1}
+bg[NORMAL]= { 0.171, 0.171, 0.171 }
+bg[PRELIGHT]= { 0.386, 0.386, 0.386 }
+bg[SELECTED]= { 0.4, 0.4, 0.4 }
+bg[ACTIVE]= { 0.5, 0.5, 0.5 }
+bg[INSENSITIVE]={ 0.6, 0.6, 0.6 }
+}
+class"*GtkButton"style"button"
+
+
+style"textview"{
+base[NORMAL]={ 1.0, 1.0, 1.0 }
+}
+widget_class"*GtkTextView*"style"textview"

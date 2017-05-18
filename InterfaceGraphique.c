@@ -12,7 +12,7 @@ void MenuResultatDecryptagePartiel(GtkWidget *Fenetre)
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
 
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Welcome to DecryptUs</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Welcome to DecryptUs</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -77,7 +77,7 @@ void ChoisirLangue()
     Boite = gtk_vbox_new(TRUE, 0);
     gtk_container_add(GTK_CONTAINER(Fenetre), Boite);
 
-    msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Quelle est la langue ? </span>\n",
+    msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Quelle est la langue ? </span>\n",
     -1, NULL, NULL, NULL);
 
     bouton1= gtk_button_new_with_label("Français");
@@ -105,7 +105,7 @@ void MenuAttente(GtkWidget *Fenetre)
    gtk_container_set_border_width(GTK_CONTAINER(pWindow), 4);
 
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Patientez...</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Patientez...</span>\n",
            -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);  
@@ -243,7 +243,7 @@ void MenuResultatSubstitution(GtkWidget *Fenetre, gchar* Text_crypt)
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
 
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">resultat du cryptage</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Par substitution</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">resultat du cryptage</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Par substitution</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -295,7 +295,7 @@ void MenuResultatVigenere(GtkWidget *Fenetre, gchar* Text_crypt, gchar* cle)
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
 
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">resultat du cryptage</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Par Vigenere</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">resultat du cryptage</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Par Vigenere</span>\n",
            -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -348,7 +348,7 @@ void MenuResultatAnalyse(GtkWidget *Fenetre,gchar *analyse)
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
 
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">resultat d'etude de texte</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">resultat d'etude de texte</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -397,7 +397,7 @@ void MenuResultatDecryptageSubstitution(GtkWidget *Fenetre, gchar* Text_crypt , 
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
 
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">resultat du decryptage</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Par Substitution</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">resultat du decryptage</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Par Substitution</span>\n",
            -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -461,7 +461,7 @@ void MenuResultatDecryptageVigenere(GtkWidget *Fenetre, gchar* Text_crypt , gcha
     Label_msg=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
 
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">resultat du decryptage</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Par Vigenere</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">resultat du decryptage</span>\n<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Par Vigenere</span>\n",
            -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -562,11 +562,11 @@ void BoiteDialogueVigenere(GtkWidget *Fenetre)
 	    Label_text=gtk_label_new(NULL);
 	    Label_cle=gtk_label_new(NULL);
 	    
-	    	msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Votre texte : </span>\n",
+	    	msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre texte : </span>\n",
 	           -1, NULL, NULL, NULL);
 	   
 
-	    indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Votre cle : </span>\n",
+	    indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre cle : </span>\n",
 	           -1, NULL, NULL, NULL);
 	    
 	   
@@ -674,7 +674,7 @@ void BoiteDialogueDecryptageSubstitution(GtkWidget *Fenetre)
     Label_text=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
 
-     msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Votre texte : </span>\n",
+     msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre texte : </span>\n",
            -1, NULL, NULL, NULL);
 
     Entrer= gtk_text_view_new();
@@ -726,10 +726,10 @@ void BoiteDialogueDecryptageVigenere(GtkWidget *Fenetre)
     Label_text=gtk_label_new(NULL);
     Label_cle=gtk_label_new(NULL);
 
-     msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Votre texte : </span>\n",
+     msg= g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre texte : </span>\n",
            -1, NULL, NULL, NULL);
 
-    indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Votre cle : </span>\n",
+    indication_cle = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Votre cle : </span>\n",
            -1, NULL, NULL, NULL);
 
     Entrer= gtk_text_view_new();
@@ -778,7 +778,7 @@ void MenuDecryptageVigenere(GtkWidget *Fenetre)
     Box_2 = gtk_hbox_new(FALSE, 0);
     
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">decryptage Vige</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">decryptage Vige</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -816,7 +816,7 @@ void MenuDecryptageSubstitution(GtkWidget *Fenetre)
     Box_2 = gtk_hbox_new(FALSE, 0);
     
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">decryptage sub</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">decryptage sub</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -855,7 +855,7 @@ void MenuCryptageVigenere(GtkWidget *Fenetre)
     Box_2 = gtk_hbox_new(FALSE, 0);
     
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">cryptage Vige</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">cryptage Vige</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -894,7 +894,7 @@ void MenuCryptageSubstitution(GtkWidget *Fenetre)
     Box_2= gtk_hbox_new(FALSE, 0);
     
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">cryptage sub</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">cryptage sub</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -933,8 +933,8 @@ void MenuAnalyseFrequentielle(GtkWidget *Fenetre)
     Box_2 = gtk_hbox_new(FALSE, 0);
    
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">etude de texte</span>\n"
-    "<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Choose the method pour entrer le texte</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">etude de texte</span>\n"
+    "<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Choose the method pour entrer le texte</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -972,8 +972,8 @@ void MenuDecryptage(GtkWidget *Fenetre)
     Box_2=gtk_hbox_new(FALSE, 0);
     
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Decryptage</span>\n"
-    "<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Choose the method</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Decryptage</span>\n"
+    "<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Choose the method</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -1010,8 +1010,8 @@ void MenuCryptage(GtkWidget *Fenetre)
     Box_2=gtk_hbox_new(FALSE, 0);
 
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Cryptage</span>\n"
-    "<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Choose the method</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Cryptage</span>\n"
+    "<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Choose the method</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
@@ -1047,7 +1047,7 @@ void MenuPrincipal(GtkWidget *Fenetre)
     gtk_container_add(GTK_CONTAINER(Fenetre), Box);
 
     Label=gtk_label_new(NULL);
-    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#0000FF\">Welcome to DecryptUs</span>\n",
+    Text = g_locale_to_utf8("<span font_desc=\"Times New Roman italic 12\" foreground=\"#1d1d1d\">Welcome to DecryptUs</span>\n",
     -1, NULL, NULL, NULL);
     gtk_label_set_markup(GTK_LABEL(Label), Text);
     g_free(Text);
