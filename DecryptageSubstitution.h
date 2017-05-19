@@ -6,6 +6,7 @@
 #endif
 
 void DecryptageSubstitution(gchar* TexteClair,gchar* text,gchar* cle);
-RESSOURCESLANGUE TabRessource();
+/*RESSOURCESLANGUE TabRessource();
 void DecryptageSub(gchar* texteCrypte);
 void VerificationCoherenceDigrammeTrigramme(gchar T[], int TailleTexte, gchar clef[], int TailleAlphabet, RESSOURCESLANGUE Ressource);
+*/

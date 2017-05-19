@@ -32,7 +32,7 @@ int Kasiski(ANALYSE freq, gchar* texteCrypte){
 	j=0;
 	for (i = 1; i < nbrpgor+1; i++)
 	{
-		kas = pgcd(kas,distance[i]);
+		//kas = pgcd(kas,distance[i]);
 		j++;
 	}
 	
